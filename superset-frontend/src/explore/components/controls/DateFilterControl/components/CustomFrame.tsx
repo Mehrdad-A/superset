@@ -20,25 +20,26 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { t } from '@superset-ui/core';
 import { Moment } from 'moment';
-import { isInteger } from 'lodash';
+// import { isInteger } from 'lodash';
 // @ts-ignore
 import { locales } from 'antd/dist/antd-with-locales';
-import { Col, Row } from 'src/components';
-import { InputNumber } from 'src/components/Input';
+import { Row } from 'src/components';
+// import { Col, Row } from 'src/components';
+// import { InputNumber } from 'src/components/Input';
 import { DatePicker } from 'src/components/DatePicker';
-import { Radio } from 'src/components/Radio';
-import Select from 'src/components/Select/Select';
-import { InfoTooltipWithTrigger } from '@superset-ui/chart-controls';
+// import { Radio } from 'src/components/Radio';
+// import Select from 'src/components/Select/Select';
+// import { InfoTooltipWithTrigger } from '@superset-ui/chart-controls';
 import {
-  SINCE_GRAIN_OPTIONS,
-  SINCE_MODE_OPTIONS,
-  UNTIL_GRAIN_OPTIONS,
-  UNTIL_MODE_OPTIONS,
+  // SINCE_GRAIN_OPTIONS,
+  // SINCE_MODE_OPTIONS,
+  // UNTIL_GRAIN_OPTIONS,
+  // UNTIL_MODE_OPTIONS,
   MOMENT_FORMAT,
-  MIDNIGHT,
+  // MIDNIGHT,
   customTimeRangeDecode,
   customTimeRangeEncode,
-  dttmToMoment,
+  // dttmToMoment,
   LOCALE_MAPPING,
 } from 'src/explore/components/controls/DateFilterControl/utils';
 import {
@@ -52,18 +53,18 @@ export function CustomFrame(props: FrameComponentProps) {
   if (!matchedFlag) {
     props.onChange(customTimeRangeEncode(customRange));
   }
-  const {
-    sinceDatetime,
-    sinceMode,
-    sinceGrain,
-    sinceGrainValue,
-    untilDatetime,
-    untilMode,
-    untilGrain,
-    untilGrainValue,
-    anchorValue,
-    anchorMode,
-  } = { ...customRange };
+  // const {
+  //   sinceDatetime,
+  //   sinceMode,
+  //   sinceGrain,
+  //   sinceGrainValue,
+  //   untilDatetime,
+  //   untilMode,
+  //   untilGrain,
+  //   untilGrainValue,
+  //   anchorValue,
+  //   anchorMode,
+  // } = { ...customRange };
 
   function onChange(control: CustomRangeKey, value: string) {
     props.onChange(
@@ -74,42 +75,44 @@ export function CustomFrame(props: FrameComponentProps) {
     );
   }
 
-  function onGrainValue(
-    control: 'sinceGrainValue' | 'untilGrainValue',
-    value: string | number,
-  ) {
-    // only positive values in grainValue controls
-    if (isInteger(value) && value > 0) {
-      props.onChange(
-        customTimeRangeEncode({
-          ...customRange,
-          [control]: value,
-        }),
-      );
-    }
-  }
+  // function onGrainValue(
+  //   control: 'sinceGrainValue' | 'untilGrainValue',
+  //   value: string | number,
+  // ) {
+  //   // only positive values in grainValue controls
+  //   if (isInteger(value) && value > 0) {
+  //     props.onChange(
+  //       customTimeRangeEncode({
+  //         ...customRange,
+  //         [control]: value,
+  //       }),
+  //     );
+  //   }
+  // }
 
-  function onAnchorMode(option: any) {
-    const radioValue = option.target.value;
-    if (radioValue === 'now') {
-      props.onChange(
-        customTimeRangeEncode({
-          ...customRange,
-          anchorValue: 'now',
-          anchorMode: radioValue,
-        }),
-      );
-    } else {
-      props.onChange(
-        customTimeRangeEncode({
-          ...customRange,
-          anchorValue: MIDNIGHT,
-          anchorMode: radioValue,
-        }),
-      );
-    }
-  }
+  // function onAnchorMode(option: any) {
+  //   const radioValue = option.target.value;
+  //   if (radioValue === 'now') {
+  //     props.onChange(
+  //       customTimeRangeEncode({
+  //         ...customRange,
+  //         anchorValue: 'now',
+  //         anchorMode: radioValue,
+  //       }),
+  //     );
+  //   } else {
+  //     props.onChange(
+  //       customTimeRangeEncode({
+  //         ...customRange,
+  //         anchorValue: MIDNIGHT,
+  //         anchorMode: radioValue,
+  //       }),
+  //     );
+  //   }
+  // }
 
+  const { RangePicker } = DatePicker;
+  const dateFormat = 'YYYY/MM/DD';
   // check if there is a locale defined for explore
   const localFromFlaskBabel = useSelector(
     (state: ExplorePageState) => state?.common?.locale,
@@ -124,21 +127,40 @@ export function CustomFrame(props: FrameComponentProps) {
     <div data-test="custom-frame">
       <div className="section-title">{t('Configure custom time range')}</div>
       <Row gutter={24}>
-        <Col span={12}>
-          <div className="control-label">
+        <RangePicker
+          format={dateFormat}
+          locale={datePickerLocale}
+          onChange={([sinceDate, untileDate]: [Moment, Moment]) => {
+            onChange('sinceDatetime', sinceDate.format(MOMENT_FORMAT));
+            onChange('untilDatetime', untileDate.format(MOMENT_FORMAT));
+          }}
+        />
+        {/* <Col span={12}> */}
+        {/* <div className="control-label">
             {t('START (INCLUSIVE)')}{' '}
             <InfoTooltipWithTrigger
               tooltip={t('Start date included in time range')}
               placement="right"
             />
-          </div>
-          <Select
+          </div> */}
+        {/* <Select
             ariaLabel={t('START (INCLUSIVE)')}
             options={SINCE_MODE_OPTIONS}
             value={sinceMode}
             onChange={(value: string) => onChange('sinceMode', value)}
-          />
-          {sinceMode === 'specific' && (
+          /> */}
+        {/* {sinceMode} */}
+        {/* <Row>
+            <DatePicker
+              defaultValue={dttmToMoment(sinceDatetime)}
+              onChange={(datetime: Moment) =>
+                onChange('sinceDatetime', datetime.format(MOMENT_FORMAT))
+              }
+              allowClear={false}
+              locale={datePickerLocale}
+            />
+          </Row> */}
+        {/* {sinceMode === 'specific' && (
             <Row>
               <DatePicker
                 showTime
@@ -150,11 +172,10 @@ export function CustomFrame(props: FrameComponentProps) {
                 locale={datePickerLocale}
               />
             </Row>
-          )}
-          {sinceMode === 'relative' && (
+          )} */}
+        {/* {sinceMode === 'relative' && (
             <Row gutter={8}>
               <Col span={11}>
-                {/* Make sure sinceGrainValue looks like a positive integer */}
                 <InputNumber
                   placeholder={t('Relative quantity')}
                   value={Math.abs(sinceGrainValue)}
@@ -175,23 +196,23 @@ export function CustomFrame(props: FrameComponentProps) {
                 />
               </Col>
             </Row>
-          )}
-        </Col>
-        <Col span={12}>
-          <div className="control-label">
+          )} */}
+        {/* </Col> */}
+        {/* <Col span={12}> */}
+        {/* <div className="control-label">
             {t('END (EXCLUSIVE)')}{' '}
             <InfoTooltipWithTrigger
               tooltip={t('End date excluded from time range')}
               placement="right"
             />
-          </div>
-          <Select
+          </div> */}
+        {/* <Select
             ariaLabel={t('END (EXCLUSIVE)')}
             options={UNTIL_MODE_OPTIONS}
             value={untilMode}
             onChange={(value: string) => onChange('untilMode', value)}
-          />
-          {untilMode === 'specific' && (
+          /> */}
+        {/* {untilMode === 'specific' && (
             <Row>
               <DatePicker
                 showTime
@@ -203,8 +224,18 @@ export function CustomFrame(props: FrameComponentProps) {
                 locale={datePickerLocale}
               />
             </Row>
-          )}
-          {untilMode === 'relative' && (
+          )} */}
+        {/* <Row>
+            <DatePicker
+              defaultValue={dttmToMoment(untilDatetime)}
+              onChange={(datetime: Moment) =>
+                onChange('untilDatetime', datetime.format(MOMENT_FORMAT))
+              }
+              allowClear={false}
+              locale={datePickerLocale}
+            />
+          </Row> */}
+        {/* {untilMode === 'relative' && (
             <Row gutter={8}>
               <Col span={11}>
                 <InputNumber
@@ -227,10 +258,10 @@ export function CustomFrame(props: FrameComponentProps) {
                 />
               </Col>
             </Row>
-          )}
-        </Col>
+          )} */}
+        {/* </Col> */}
       </Row>
-      {sinceMode === 'relative' && untilMode === 'relative' && (
+      {/* {sinceMode === 'relative' && untilMode === 'relative' && (
         <div className="control-anchor-to">
           <div className="control-label">{t('Anchor to')}</div>
           <Row align="middle">
@@ -264,7 +295,7 @@ export function CustomFrame(props: FrameComponentProps) {
             )}
           </Row>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
