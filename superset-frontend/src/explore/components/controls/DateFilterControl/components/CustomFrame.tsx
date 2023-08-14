@@ -51,7 +51,8 @@ import { ExplorePageState } from 'src/explore/types';
 export function CustomFrame(props: FrameComponentProps) {
   const { customRange, matchedFlag } = customTimeRangeDecode(props.value);
   if (!matchedFlag) {
-    props.onChange(customTimeRangeEncode(customRange));
+    customRange.sinceMode = 'specific';
+    // props.onChange(customTimeRangeEncode(customRange));
   }
   // const {
   //   sinceDatetime,
@@ -66,11 +67,11 @@ export function CustomFrame(props: FrameComponentProps) {
   //   anchorMode,
   // } = { ...customRange };
 
-  function onChange(control: CustomRangeKey, value: string) {
+  function onChange(controls: object) {
     props.onChange(
       customTimeRangeEncode({
         ...customRange,
-        [control]: value,
+        ...controls,
       }),
     );
   }
@@ -131,8 +132,12 @@ export function CustomFrame(props: FrameComponentProps) {
           format={dateFormat}
           locale={datePickerLocale}
           onChange={([sinceDate, untileDate]: [Moment, Moment]) => {
-            onChange('sinceDatetime', sinceDate.format(MOMENT_FORMAT));
-            onChange('untilDatetime', untileDate.format(MOMENT_FORMAT));
+            // onChange('sinceDatetime', sinceDate.format(MOMENT_FORMAT));
+            // onChange('untilDatetime', untileDate.format(MOMENT_FORMAT));
+            onChange({
+              sinceDatetime: sinceDate.format(MOMENT_FORMAT),
+              untilDatetime: untileDate.format(MOMENT_FORMAT),
+            });
           }}
         />
         {/* <Col span={12}> */}
