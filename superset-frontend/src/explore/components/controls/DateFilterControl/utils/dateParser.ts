@@ -200,36 +200,40 @@ export const customTimeRangeEncode = (customRange: CustomRangeType): string => {
     anchorValue,
   } = { ...customRange };
   // specific : specific
-  if (SPECIFIC_MODE.includes(sinceMode) && SPECIFIC_MODE.includes(untilMode)) {
-    const since =
-      sinceMode === 'specific' ? dttmToString(sinceDatetime) : sinceMode;
-    const until =
-      untilMode === 'specific' ? dttmToString(untilDatetime) : untilMode;
-    return `${since} : ${until}`;
-  }
+  // if (SPECIFIC_MODE.includes(sinceMode) && SPECIFIC_MODE.includes(untilMode)) {
+  //   const since =
+  //     sinceMode === 'specific' ? dttmToString(sinceDatetime) : sinceMode;
+  //   const until =
+  //     untilMode === 'specific' ? dttmToString(untilDatetime) : untilMode;
+  // }
+  const since =
+    sinceMode === 'specific' ? dttmToString(sinceDatetime) : sinceMode;
+  const until =
+    untilMode === 'specific' ? dttmToString(untilDatetime) : untilMode;
+  return `${since} : ${until}`;
 
   // specific : relative
-  if (SPECIFIC_MODE.includes(sinceMode) && untilMode === 'relative') {
-    const since =
-      sinceMode === 'specific' ? dttmToString(sinceDatetime) : sinceMode;
-    const until = `DATEADD(DATETIME("${since}"), ${untilGrainValue}, ${untilGrain})`;
-    return `${since} : ${until}`;
-  }
+  // if (SPECIFIC_MODE.includes(sinceMode) && untilMode === 'relative') {
+  //   const since =
+  //     sinceMode === 'specific' ? dttmToString(sinceDatetime) : sinceMode;
+  //   const until = `DATEADD(DATETIME("${since}"), ${untilGrainValue}, ${untilGrain})`;
+  //   return `${since} : ${until}`;
+  // }
 
   // relative : specific
-  if (sinceMode === 'relative' && SPECIFIC_MODE.includes(untilMode)) {
-    const until =
-      untilMode === 'specific' ? dttmToString(untilDatetime) : untilMode;
-    const since = `DATEADD(DATETIME("${until}"), ${-Math.abs(
-      sinceGrainValue,
-    )}, ${sinceGrain})`;
-    return `${since} : ${until}`;
-  }
+  // if (sinceMode === 'relative' && SPECIFIC_MODE.includes(untilMode)) {
+  //   const until =
+  //     untilMode === 'specific' ? dttmToString(untilDatetime) : untilMode;
+  //   const since = `DATEADD(DATETIME("${until}"), ${-Math.abs(
+  //     sinceGrainValue,
+  //   )}, ${sinceGrain})`;
+  //   return `${since} : ${until}`;
+  // }
 
   // relative : relative
-  const since = `DATEADD(DATETIME("${anchorValue}"), ${-Math.abs(
-    sinceGrainValue,
-  )}, ${sinceGrain})`;
-  const until = `DATEADD(DATETIME("${anchorValue}"), ${untilGrainValue}, ${untilGrain})`;
-  return `${since} : ${until}`;
+  // const since = `DATEADD(DATETIME("${anchorValue}"), ${-Math.abs(
+  //   sinceGrainValue,
+  // )}, ${sinceGrain})`;
+  // const until = `DATEADD(DATETIME("${anchorValue}"), ${untilGrainValue}, ${untilGrain})`;
+  // return `${since} : ${until}`;
 };
