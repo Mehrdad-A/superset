@@ -70,6 +70,9 @@
     "test": "cross-env NODE_ENV=test jest",
     "type": "tsc --noEmit"
   },
+  "scarfSettings": {
+    "enabled": false
+  },
   "browserslist": [
     "last 3 chrome versions",
     "last 3 firefox versions",

@@ -87,6 +87,7 @@ module.exports = {
       ],
       plugins: ['@typescript-eslint/eslint-plugin', 'prettier', 'react'],
       rules: {
+        '@typescript-eslint/no-unused-vars': 0,
         '@typescript-eslint/ban-ts-ignore': 0,
         '@typescript-eslint/ban-ts-comment': 0, // disabled temporarily
         '@typescript-eslint/ban-types': 0, // disabled temporarily

@@ -115,7 +115,7 @@ type Routes = {
 
 export const routes: Routes = [
   {
-    path: '/superset/welcome/',
+    path: '/visionz/welcome/',
     Component: Welcome,
   },
   {
@@ -123,7 +123,7 @@ export const routes: Routes = [
     Component: DashboardList,
   },
   {
-    path: '/superset/dashboard/:idOrSlug/',
+    path: '/visionz/dashboard/:idOrSlug/',
     Component: DashboardRoute,
   },
   {
