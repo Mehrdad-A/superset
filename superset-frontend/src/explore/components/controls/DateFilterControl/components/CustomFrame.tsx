@@ -131,176 +131,23 @@ export function CustomFrame(props: FrameComponentProps) {
         <RangePicker
           format={dateFormat}
           locale={datePickerLocale}
-          onChange={([sinceDate, untileDate]: [Moment, Moment]) => {
+          onChange={arr => {
             // onChange('sinceDatetime', sinceDate.format(MOMENT_FORMAT));
             // onChange('untilDatetime', untileDate.format(MOMENT_FORMAT));
-            onChange({
-              sinceDatetime: sinceDate.format(MOMENT_FORMAT),
-              untilDatetime: untileDate.format(MOMENT_FORMAT),
-            });
+            if (arr !== null) {
+              onChange({
+                sinceDatetime: arr[0]?.format(MOMENT_FORMAT),
+                untilDatetime: arr[1]?.format(MOMENT_FORMAT),
+              });
+            } else {
+              onChange({
+                sinceDatetime: '',
+                untilDatetime: '',
+              });
+            }
           }}
         />
-        {/* <Col span={12}> */}
-        {/* <div className="control-label">
-            {t('START (INCLUSIVE)')}{' '}
-            <InfoTooltipWithTrigger
-              tooltip={t('Start date included in time range')}
-              placement="right"
-            />
-          </div> */}
-        {/* <Select
-            ariaLabel={t('START (INCLUSIVE)')}
-            options={SINCE_MODE_OPTIONS}
-            value={sinceMode}
-            onChange={(value: string) => onChange('sinceMode', value)}
-          /> */}
-        {/* {sinceMode} */}
-        {/* <Row>
-            <DatePicker
-              defaultValue={dttmToMoment(sinceDatetime)}
-              onChange={(datetime: Moment) =>
-                onChange('sinceDatetime', datetime.format(MOMENT_FORMAT))
-              }
-              allowClear={false}
-              locale={datePickerLocale}
-            />
-          </Row> */}
-        {/* {sinceMode === 'specific' && (
-            <Row>
-              <DatePicker
-                showTime
-                defaultValue={dttmToMoment(sinceDatetime)}
-                onChange={(datetime: Moment) =>
-                  onChange('sinceDatetime', datetime.format(MOMENT_FORMAT))
-                }
-                allowClear={false}
-                locale={datePickerLocale}
-              />
-            </Row>
-          )} */}
-        {/* {sinceMode === 'relative' && (
-            <Row gutter={8}>
-              <Col span={11}>
-                <InputNumber
-                  placeholder={t('Relative quantity')}
-                  value={Math.abs(sinceGrainValue)}
-                  min={1}
-                  defaultValue={1}
-                  onChange={value =>
-                    onGrainValue('sinceGrainValue', value || 1)
-                  }
-                  onStep={value => onGrainValue('sinceGrainValue', value || 1)}
-                />
-              </Col>
-              <Col span={13}>
-                <Select
-                  ariaLabel={t('Relative period')}
-                  options={SINCE_GRAIN_OPTIONS}
-                  value={sinceGrain}
-                  onChange={(value: string) => onChange('sinceGrain', value)}
-                />
-              </Col>
-            </Row>
-          )} */}
-        {/* </Col> */}
-        {/* <Col span={12}> */}
-        {/* <div className="control-label">
-            {t('END (EXCLUSIVE)')}{' '}
-            <InfoTooltipWithTrigger
-              tooltip={t('End date excluded from time range')}
-              placement="right"
-            />
-          </div> */}
-        {/* <Select
-            ariaLabel={t('END (EXCLUSIVE)')}
-            options={UNTIL_MODE_OPTIONS}
-            value={untilMode}
-            onChange={(value: string) => onChange('untilMode', value)}
-          /> */}
-        {/* {untilMode === 'specific' && (
-            <Row>
-              <DatePicker
-                showTime
-                defaultValue={dttmToMoment(untilDatetime)}
-                onChange={(datetime: Moment) =>
-                  onChange('untilDatetime', datetime.format(MOMENT_FORMAT))
-                }
-                allowClear={false}
-                locale={datePickerLocale}
-              />
-            </Row>
-          )} */}
-        {/* <Row>
-            <DatePicker
-              defaultValue={dttmToMoment(untilDatetime)}
-              onChange={(datetime: Moment) =>
-                onChange('untilDatetime', datetime.format(MOMENT_FORMAT))
-              }
-              allowClear={false}
-              locale={datePickerLocale}
-            />
-          </Row> */}
-        {/* {untilMode === 'relative' && (
-            <Row gutter={8}>
-              <Col span={11}>
-                <InputNumber
-                  placeholder={t('Relative quantity')}
-                  value={untilGrainValue}
-                  min={1}
-                  defaultValue={1}
-                  onChange={value =>
-                    onGrainValue('untilGrainValue', value || 1)
-                  }
-                  onStep={value => onGrainValue('untilGrainValue', value || 1)}
-                />
-              </Col>
-              <Col span={13}>
-                <Select
-                  ariaLabel={t('Relative period')}
-                  options={UNTIL_GRAIN_OPTIONS}
-                  value={untilGrain}
-                  onChange={(value: string) => onChange('untilGrain', value)}
-                />
-              </Col>
-            </Row>
-          )} */}
-        {/* </Col> */}
       </Row>
-      {/* {sinceMode === 'relative' && untilMode === 'relative' && (
-        <div className="control-anchor-to">
-          <div className="control-label">{t('Anchor to')}</div>
-          <Row align="middle">
-            <Col>
-              <Radio.Group
-                onChange={onAnchorMode}
-                defaultValue="now"
-                value={anchorMode}
-              >
-                <Radio key="now" value="now">
-                  {t('NOW')}
-                </Radio>
-                <Radio key="specific" value="specific">
-                  {t('Date/Time')}
-                </Radio>
-              </Radio.Group>
-            </Col>
-            {anchorMode !== 'now' && (
-              <Col>
-                <DatePicker
-                  showTime
-                  defaultValue={dttmToMoment(anchorValue)}
-                  onChange={(datetime: Moment) =>
-                    onChange('anchorValue', datetime.format(MOMENT_FORMAT))
-                  }
-                  allowClear={false}
-                  className="control-anchor-to-datetime"
-                  locale={datePickerLocale}
-                />
-              </Col>
-            )}
-          </Row>
-        </div>
-      )} */}
     </div>
   );
 }

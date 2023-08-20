@@ -206,11 +206,14 @@ export const customTimeRangeEncode = (customRange: CustomRangeType): string => {
   //   const until =
   //     untilMode === 'specific' ? dttmToString(untilDatetime) : untilMode;
   // }
-  const since =
-    sinceMode === 'specific' ? dttmToString(sinceDatetime) : sinceMode;
-  const until =
-    untilMode === 'specific' ? dttmToString(untilDatetime) : untilMode;
-  return `${since} : ${until}`;
+  if (sinceDatetime || untilDatetime) {
+    const since =
+      sinceMode === 'specific' ? dttmToString(sinceDatetime) : sinceMode;
+    const until =
+      untilMode === 'specific' ? dttmToString(untilDatetime) : untilMode;
+    return `${since} : ${until}`;
+  }
+  return 'No filter';
 
   // specific : relative
   // if (SPECIFIC_MODE.includes(sinceMode) && untilMode === 'relative') {

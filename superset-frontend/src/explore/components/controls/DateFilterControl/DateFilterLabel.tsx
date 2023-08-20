@@ -247,8 +247,8 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
   );
 
   function onSave() {
-    // console.log('here')
-    // console.log(timeRangeValue);
+    console.log('time range value')
+    console.log(timeRangeValue);
     onChange(timeRangeValue);
     // setShow(false);
     // onClosePopover();
