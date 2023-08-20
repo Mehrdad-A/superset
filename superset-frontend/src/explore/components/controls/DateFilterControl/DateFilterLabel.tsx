@@ -19,7 +19,7 @@
 import React, { ReactNode, useState, useEffect, useMemo } from 'react';
 import {
   css,
-  // styled,
+  styled,
   t,
   useTheme,
   NO_TIME_RANGE,
@@ -114,6 +114,7 @@ import {
 //     }
 //   `}
 // `;
+
 
 // const IconWrapper = styled.span`
 //   span {
@@ -414,17 +415,19 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
       <div
         className="test"
         style={{
-          padding: '0 10',
+          padding: '0 0 0 12px',
           display: 'flex',
           justifyContent: 'space-between',
+          gap: '24px',
         }}
       >
         <div>
           <CustomFrame value={timeRangeValue} onChange={setTimeRangeValue} />
         </div>
-        <div style={{ display: 'flex', paddingTop: 18 }}>
+        {/* paddingTop: 18 */}
+        <div style={{ display: 'flex' }}>
           <Button
-            style={{ minWidth: 60 }}
+            style={{ minWidth: 50 }}
             buttonStyle="primary"
             cta
             disabled={!validTimeRange}
