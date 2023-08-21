@@ -51,6 +51,7 @@ const ButtonWrapper = styled.div`
   display: flex;
   align-items: end;
   padding-bottom: 1px;
+  // flex-direction: column;
 `;
 
 const getTooltipTitle = (
@@ -181,7 +182,8 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
         style={{
           padding: '0 0 0 12px',
           display: 'flex',
-          justifyContent: 'space-between',
+          flexDirection: 'column',
+          // justifyContent: 'space-between',
           gap: '24px',
         }}
       >
@@ -193,9 +195,9 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
           <Button
             style={{
               minWidth: 50,
-              position: 'absolute',
-              left: '295px',
-              top: '30px',
+              // position: 'absolute',
+              // left: '295px',
+              // top: '30px',
             }}
             buttonStyle="primary"
             cta
