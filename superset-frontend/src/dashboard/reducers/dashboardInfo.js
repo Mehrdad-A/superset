@@ -25,6 +25,9 @@ import {
 import { HYDRATE_DASHBOARD } from '../actions/hydrate';
 
 export default function dashboardStateReducer(state = {}, action) {
+  // console.log('reduce')
+  // console.log(action)
+  // console.log(state)
   switch (action.type) {
     case DASHBOARD_INFO_UPDATED:
       return {

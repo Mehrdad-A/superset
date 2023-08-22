@@ -647,7 +647,7 @@ const DashboardBuilder: FC<DashboardBuilderProps> = () => {
                 <FiltersPanel
                   width={filterBarWidth}
                   data-test="dashboard-filters-panel"
-                >
+                > 
                   <StickyPanel ref={containerRef} width={filterBarWidth}>
                     <ErrorBoundary>
                       {!isReport && (
