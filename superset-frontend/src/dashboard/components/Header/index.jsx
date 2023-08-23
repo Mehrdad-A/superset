@@ -540,7 +540,15 @@ class Header extends React.PureComponent {
           }
           rightPanelAdditionalItems={
             <div className="button-container">
-              {userCanSaveAs && (
+              {/*
+              {editMode}
+              {userCanSaveAs}
+              {console.log(editMode)}
+              {console.log(userCanSaveAs)}
+              {console.log(dashboardInfo)}
+              by */}
+              {/* userCanSaveAs */}
+              {true && (
                 <div
                   className="button-container"
                   data-test="dashboard-edit-actions"

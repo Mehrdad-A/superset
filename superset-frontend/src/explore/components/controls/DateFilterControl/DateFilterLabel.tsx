@@ -26,17 +26,10 @@ import {
   SupersetTheme,
 } from '@superset-ui/core';
 import Button from 'src/components/Button';
-// import ControlHeader from 'src/explore/components/ControlHeader';
-// import Modal from 'src/components/Modal';
-// import { Divider } from 'src/components';
-// import Icons from 'src/components/Icons';
-// import Select from 'src/components/Select/Select';
-// import { Tooltip } from 'src/components/Tooltip';
 import { useDebouncedEffect } from 'src/explore/exploreUtils';
 import { SLOW_DEBOUNCE } from 'src/constants';
 import { noOp } from 'src/utils/common';
 import { useCSSTextTruncation } from 'src/hooks/useTruncation';
-// import ControlPopover from '../ControlPopover/ControlPopover';
 
 import { DateFilterControlProps, FrameType } from './types';
 import {
@@ -54,80 +47,12 @@ import {
   // DateLabel,
 } from './components';
 
-// const StyledRangeType = styled(Select)`
-//   width: 272px;
-// `;
-
-// const ContentStyleWrapper = styled.div`
-//   ${({ theme }) => css`
-//     .ant-row {
-//       margin-top: 8px;
-//     }
-
-//     .ant-input-number {
-//       width: 100%;
-//     }
-
-//     .ant-picker {
-//       padding: 4px 17px 4px;
-//       border-radius: 4px;
-//       width: 100%;
-//     }
-
-//     .ant-divider-horizontal {
-//       margin: 16px 0;
-//     }
-
-//     .control-label {
-//       font-size: 11px;
-//       font-weight: ${theme.typography.weights.medium};
-//       color: ${theme.colors.grayscale.light2};
-//       line-height: 16px;
-//       text-transform: uppercase;
-//       margin: 8px 0;
-//     }
-
-//     .vertical-radio {
-//       display: block;
-//       height: 40px;
-//       line-height: 40px;
-//     }
-
-//     .section-title {
-//       font-style: normal;
-//       font-weight: ${theme.typography.weights.bold};
-//       font-size: 15px;
-//       line-height: 24px;
-//       margin-bottom: 8px;
-//     }
-
-//     .control-anchor-to {
-//       margin-top: 16px;
-//     }
-
-//     .control-anchor-to-datetime {
-//       width: 217px;
-//     }
-
-//     .footer {
-//       text-align: right;
-//     }
-//   `}
-// `;
-
-
-// const IconWrapper = styled.span`
-//   span {
-//     margin-right: ${({ theme }) => 2 * theme.gridUnit}px;
-//     vertical-align: middle;
-//   }
-//   .text {
-//     vertical-align: middle;
-//   }
-//   .error {
-//     color: ${({ theme }) => theme.colors.error.base};
-//   }
-// `;
+const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: end;
+  padding-bottom: 1px;
+  // flex-direction: column;
+`;
 
 const getTooltipTitle = (
   isLabelTruncated: boolean,
@@ -247,177 +172,18 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
   );
 
   function onSave() {
-    // console.log('here')
-    // console.log(timeRangeValue);
     onChange(timeRangeValue);
-    // setShow(false);
-    // onClosePopover();
   }
-
-  // function onOpen() {
-  //   setTimeRangeValue(value);
-  //   setFrame(guessedFrame);
-  //   setShow(true);
-  //   onOpenPopover();
-  // }
-
-  // function onHide() {
-  //   setTimeRangeValue(value);
-  //   setFrame(guessedFrame);
-  //   setShow(false);
-  //   onClosePopover();
-  // }
-
-  // const toggleOverlay = () => {
-  //   if (show) {
-  //     onHide();
-  //   } else {
-  //     onOpen();
-  //   }
-  // };
-
-  // function onChangeFrame(value: FrameType) {
-  //   if (value === NO_TIME_RANGE) {
-  //     setTimeRangeValue(NO_TIME_RANGE);
-  //   }
-  //   setFrame(value);
-  // }
-
-  // const overlayContent = (
-  //   <ContentStyleWrapper>
-  //     <div className="control-label">{t('RANGE TYPE')}</div>
-  //     <StyledRangeType
-  //       ariaLabel={t('RANGE TYPE')}
-  //       options={FRAME_OPTIONS}
-  //       value={frame}
-  //       onChange={onChangeFrame}
-  //     />
-  //     {frame !== 'No filter' && <Divider />}
-  //     {frame === 'Common' && (
-  //       <CommonFrame value={timeRangeValue} onChange={setTimeRangeValue} />
-  //     )}
-  //     {frame === 'Calendar' && (
-  //       <CalendarFrame value={timeRangeValue} onChange={setTimeRangeValue} />
-  //     )}
-  //     {frame === 'Advanced' && (
-  //       <AdvancedFrame value={timeRangeValue} onChange={setTimeRangeValue} />
-  //     )}
-  //     {frame === 'Custom' && (
-  //       <CustomFrame value={timeRangeValue} onChange={setTimeRangeValue} />
-  //     )}
-  //     {frame === 'No filter' && (
-  //       <div data-test={DATE_FILTER_TEST_KEY.noFilter} />
-  //     )}
-  //     <CustomFrame value={timeRangeValue} onChange={setTimeRangeValue} />
-  //     <Divider />
-  //     <div>
-  //       <div className="section-title">{t('Actual time range')}</div>
-  //       {validTimeRange && <div>{evalResponse}</div>}
-  //       {!validTimeRange && (
-  //         <IconWrapper className="warning">
-  //           <Icons.ErrorSolidSmall iconColor={theme.colors.error.base} />
-  //           <span className="text error">{evalResponse}</span>
-  //         </IconWrapper>
-  //       )}
-  //     </div>
-  //     {/* <Divider /> */}
-  //     <div className="footer">
-  //       <Button
-  //         buttonStyle="secondary"
-  //         cta
-  //         key="cancel"
-  //         onClick={onHide}
-  //         data-test={DATE_FILTER_TEST_KEY.cancelButton}
-  //       >
-  //         {t('CANCEL')}
-  //       </Button>
-  //       <Button
-  //         buttonStyle="primary"
-  //         cta
-  //         disabled={!validTimeRange}
-  //         key="apply"
-  //         onClick={onSave}
-  //         data-test={DATE_FILTER_TEST_KEY.applyButton}
-  //       >
-  //         {t('APPLY')}
-  //       </Button>
-  //     </div>
-  //   </ContentStyleWrapper>
-  // );
-
-  // const title = (
-  //   <IconWrapper>
-  //     <Icons.EditAlt iconColor={theme.colors.grayscale.base} />
-  //     <span className="text">{t('Edit time range')}</span>
-  //   </IconWrapper>
-  // );
-
-  // const popoverContent = (
-  //   <ControlPopover
-  //     placement="right"
-  //     trigger="click"
-  //     content={overlayContent}
-  //     title={title}
-  //     defaultVisible={show}
-  //     visible={show}
-  //     onVisibleChange={toggleOverlay}
-  //     overlayStyle={{ width: '600px' }}
-  //     getPopupContainer={triggerNode =>
-  //       isOverflowingFilterBar
-  //         ? (triggerNode.parentNode as HTMLElement)
-  //         : document.body
-  //     }
-  //     destroyTooltipOnHide
-  //   >
-  //     <Tooltip placement="top" title={tooltipTitle}>
-  //       <DateLabel
-  //         label={actualTimeRange}
-  //         isActive={show}
-  //         isPlaceholder={actualTimeRange === NO_TIME_RANGE}
-  //         data-test={DATE_FILTER_TEST_KEY.popoverOverlay}
-  //         ref={labelRef}
-  //       />
-  //     </Tooltip>
-  //   </ControlPopover>
-  // );
-
-  // const modalContent = (
-  //   <>
-  //     <Tooltip placement="top" title={tooltipTitle}>
-  //       <DateLabel
-  //         onClick={toggleOverlay}
-  //         label={actualTimeRange}
-  //         isActive={show}
-  //         isPlaceholder={actualTimeRange === NO_TIME_RANGE}
-  //         data-test={DATE_FILTER_TEST_KEY.modalOverlay}
-  //         ref={labelRef}
-  //       />
-  //     </Tooltip>
-  //     {/* the zIndex value is from trying so that the Modal doesn't overlay the AdhocFilter when GENERIC_CHART_AXES is enabled */}
-  //     <Modal
-  //       title={title}
-  //       show={show}
-  //       onHide={toggleOverlay}
-  //       width="600px"
-  //       hideFooter
-  //       zIndex={1030}
-  //     >
-  //       {overlayContent}
-  //     </Modal>
-  //   </>
-  // );
 
   return (
     <>
-      {/* <ControlHeader {...props} /> */}
-      {/* {overlayStyle === 'Modal' ? modalContent : popoverContent} */}
-      {/* <CustomFrame value={timeRangeValue} onChange={setTimeRangeValue} /> */}
       <div
         className="test"
         style={{
           padding: '0 0 0 12px',
           display: 'flex',
-          justifyContent: 'space-between',
+          flexDirection: 'column',
+          // justifyContent: 'space-between',
           gap: '24px',
         }}
       >
@@ -425,9 +191,14 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
           <CustomFrame value={timeRangeValue} onChange={setTimeRangeValue} />
         </div>
         {/* paddingTop: 18 */}
-        <div style={{ display: 'flex' }}>
+        <ButtonWrapper>
           <Button
-            style={{ minWidth: 50 }}
+            style={{
+              minWidth: 50,
+              // position: 'absolute',
+              // left: '295px',
+              // top: '30px',
+            }}
             buttonStyle="primary"
             cta
             disabled={!validTimeRange}
@@ -437,7 +208,7 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
           >
             {t('APPLY')}
           </Button>
-        </div>
+        </ButtonWrapper>
       </div>
     </>
   );
