@@ -101,8 +101,9 @@ class CeleryConfig(object):
 CELERY_CONFIG = CeleryConfig
 
 FEATURE_FLAGS = {"ALERT_REPORTS": True,
-                 "GENERIC_CHART_AXES": True,
-                 "HTML_SANITIZATION": False}
+                 "GENERIC_CHART_AXES": True}
+
+HTML_SANITIZATION = False
 
 ALERT_REPORTS_NOTIFICATION_DRY_RUN = True
 WEBDRIVER_BASEURL = "http://superset:8088/"
