@@ -164,9 +164,7 @@ const defaultTheme = {
   brandIconMaxWidth: 37,
 };
 
-const kudosTheme = 
-
-{
+const kudosTheme = {
   borderRadius: 4,
   colors: {
     text: {
@@ -195,7 +193,7 @@ const kudosTheme =
       light5: '#F5F5F8',
     },
     grayscale: {
-     base: '#5A5E73',
+      base: '#5A5E73',
       dark1: '#2F323D',
       dark2: '#000000',
       light1: '#8186A1',
@@ -259,7 +257,7 @@ const kudosTheme =
       bold: 600,
     },
     sizes: {
-      xs:14,
+      xs: 14,
       s: 16,
       m: 20,
       l: 24,
@@ -283,5 +281,5 @@ export interface SupersetThemeProps {
   // kudos: SupersetTheme;
 }
 
-// export const supersetTheme = defaultTheme;
-export const supersetTheme = kudosTheme;
+export const supersetTheme = defaultTheme;
+// export const supersetTheme = kudosTheme;
