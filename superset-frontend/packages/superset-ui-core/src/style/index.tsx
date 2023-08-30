@@ -164,10 +164,122 @@ const defaultTheme = {
   brandIconMaxWidth: 37,
 };
 
+const kudosTheme = {
+  borderRadius: 4,
+  colors: {
+    text: {
+      label: '#2F323D',
+      help: '#5A5E73',
+    },
+    primary: {
+      base: '#4169C1',
+      dark1: '#2F4B8C',
+      dark2: '#156378',
+      light1: '#507EE3',
+      light2: '#C6D7FF',
+      light3: '#E7EEFF',
+      light4: '#E9F6F9',
+      light5: '#F3F8FA',
+    },
+    secondary: {
+      base: '#5A5E73',
+      dark1: '#2F323D',
+      dark2: '#000000',
+      dark3: '#1B1F31',
+      light1: '#8186A1',
+      light2: '#D3DBFF',
+      light3: '#EBEEFF',
+      light4: '#ECEEF2',
+      light5: '#F5F5F8',
+    },
+    grayscale: {
+      base: '#5A5E73',
+      dark1: '#2F323D',
+      dark2: '#000000',
+      light1: '#8186A1',
+      light2: '#D3DBFF',
+      light3: '#EBEEFF',
+      light4: '#F7F7F7',
+      light5: '#FFFFFF',
+    },
+    error: {
+      base: '#DA334B',
+      dark1: '#AD2840',
+      dark2: '#6F212A',
+      light1: '#FFD7D9',
+      light2: '#FAEDEE',
+    },
+    warning: {
+      base: '#CE8517',
+      dark1: '#A05C0A',
+      dark2: '#7F3F21',
+      light1: '#FFEDCA',
+      light2: '#FFF2EC',
+    },
+    alert: {
+      base: '#FCC700',
+      dark1: '#BC9501',
+      dark2: '#7D6300',
+      light1: '#FDE380',
+      light2: '#FEF9E6',
+    },
+    success: {
+      base: '#4169C1',
+      dark1: '#237706',
+      dark2: '#2B6144',
+      light1: '#DFF4D7',
+      light2: '#EEF8F3',
+    },
+    info: {
+      base: '#66BCFE',
+      dark1: '#2F4B8C',
+      dark2: '#315E7E',
+      light1: '#C6D7FF',
+      light2: '#EFF8FE',
+    },
+  },
+  opacity: {
+    light: '10%',
+    mediumLight: '35%',
+    mediumHeavy: '60%',
+    heavy: '80%',
+  },
+  typography: {
+    families: {
+      sansSerif: `Lato, 'Inter', Helvetica, Arial`,
+      serif: `Georgia, 'Times New Roman', Times, serif`,
+      monospace: `'Fira Code', 'Courier New', monospace`,
+    },
+    weights: {
+      light: 200,
+      normal: 400,
+      medium: 500,
+      bold: 600,
+    },
+    sizes: {
+      xs: 14,
+      s: 16,
+      m: 20,
+      l: 24,
+      xl: 28,
+    },
+  },
+  zIndex: {
+    aboveDashboardCharts: 10,
+    dropdown: 11,
+    max: 3000,
+  },
+  transitionTiming: 0.3,
+  gridUnit: 4,
+  brandIconMaxWidth: 37,
+};
+
 export type SupersetTheme = typeof defaultTheme;
 
 export interface SupersetThemeProps {
   theme: SupersetTheme;
+  // kudos: SupersetTheme;
 }
 
 export const supersetTheme = defaultTheme;
+// export const supersetTheme = kudosTheme;
