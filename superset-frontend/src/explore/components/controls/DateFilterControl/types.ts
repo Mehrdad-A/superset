@@ -87,6 +87,7 @@ export type CalendarRangeType =
 
 export type FrameComponentProps = {
   onChange: (timeRange: string) => void;
+  onSave?: () => void;
   value: string;
 };
 
