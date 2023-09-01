@@ -19,63 +19,33 @@
 
 import CategoricalScheme from '../../CategoricalScheme';
 
-// const schemes = [
-//   {
-//     id: 'supersetColors',
-//     label: 'Superset Colors',
-//     colors: [
-//       // Full color
-//       '#1FA8C9',
-//       '#454E7C',
-//       '#5AC189',
-//       '#FF7F44',
-//       '#666666',
-//       '#E04355',
-//       '#FCC700',
-//       '#A868B7',
-//       '#3CCCCB',
-//       '#A38F79',
-//       // Pastels
-//       '#8FD3E4',
-//       '#A1A6BD',
-//       '#ACE1C4',
-//       '#FEC0A1',
-//       '#B2B2B2',
-//       '#EFA1AA',
-//       '#FDE380',
-//       '#D3B3DA',
-//       '#9EE5E5',
-//       '#D1C6BC',
-//     ],
-//   },
-// ].map(s => new CategoricalScheme(s));
 const schemes = [
   {
     id: 'supersetColors',
     label: 'Superset Colors',
     colors: [
       // Full color
-      '#E35C5C',
-      '#FC852E',
-      '#FCAD14',
-      '#9BCD4A',
-      '#2DBA65',
-      '#12CFC4',
-      '#17BDF1',
-      '#937DEF',
-      '#C67DD2',
-      '#F880A4',
+      '#1FA8C9',
+      '#454E7C',
+      '#5AC189',
+      '#FF7F44',
+      '#666666',
+      '#E04355',
+      '#FCC700',
+      '#A868B7',
+      '#3CCCCB',
+      '#A38F79',
       // Pastels
-      '#F1ADAD',
-      '#FDC297',
-      '#FDD689',
-      '#CDE6A5',
-      '#96DCB2',
-      '#89E7E1',
-      '#8BDEF8',
-      '#C9BEF7',
-      '#E3BEE9',
-      '#FBBFD1',
+      '#8FD3E4',
+      '#A1A6BD',
+      '#ACE1C4',
+      '#FEC0A1',
+      '#B2B2B2',
+      '#EFA1AA',
+      '#FDE380',
+      '#D3B3DA',
+      '#9EE5E5',
+      '#D1C6BC',
     ],
   },
 ].map(s => new CategoricalScheme(s));

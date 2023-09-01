@@ -189,11 +189,6 @@ export function CustomFrame(props: FrameComponentProps) {
                   untilDatetime: '',
                 });
               }
-              // setTimeout(() => {
-              //   if (props.onSave) {
-              //     props.onSave();
-              //   }
-              // }, 2000);
             }}
           />
         </Row>
