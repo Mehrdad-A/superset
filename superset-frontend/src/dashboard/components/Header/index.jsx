@@ -540,7 +540,7 @@ class Header extends React.PureComponent {
           }
           rightPanelAdditionalItems={
             <div className="button-container">
-              {/*
+              {/* salam
               {editMode}
               {userCanSaveAs}
               {console.log(editMode)}
