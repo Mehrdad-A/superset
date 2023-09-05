@@ -257,11 +257,13 @@ const kudosTheme = {
       bold: 600,
     },
     sizes: {
+      xxs: 12,
       xs: 14,
       s: 16,
       m: 20,
       l: 24,
       xl: 28,
+      xxl: 28,
     },
   },
   zIndex: {
@@ -281,5 +283,5 @@ export interface SupersetThemeProps {
   // kudos: SupersetTheme;
 }
 
-export const supersetTheme = defaultTheme;
-// export const supersetTheme = kudosTheme;
+// export const supersetTheme = defaultTheme;
+export const supersetTheme = kudosTheme;
