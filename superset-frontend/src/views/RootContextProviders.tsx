@@ -25,6 +25,7 @@ import { QueryParamProvider } from 'use-query-params';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import getBootstrapData from 'src/utils/getBootstrapData';
+import { Theme } from '@emotion/react';
 import { store } from './store';
 import FlashProvider from '../components/FlashProvider';
 import { theme } from '../preamble';
@@ -41,7 +42,9 @@ export const RootContextProviders: React.FC = ({ children }) => {
   );
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider
+      theme={theme as Partial<Theme> | ((outerTheme: Theme) => Theme)}
+    >
       <ReduxProvider store={store}>
         <DndProvider backend={HTML5Backend}>
           <FlashProvider messages={common.flash_messages}>

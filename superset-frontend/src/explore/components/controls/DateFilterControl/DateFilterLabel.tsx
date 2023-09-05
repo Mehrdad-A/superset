@@ -48,7 +48,7 @@ import {
 } from './components';
 
 const ButtonWrapper = styled.div`
-  display: flex;
+  display: none;
   align-items: end;
   padding-bottom: 1px;
   // flex-direction: column;
@@ -152,6 +152,11 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
         // setEvalResponse(NO_TIME_RANGE);
         setLastFetchedTimeRange(NO_TIME_RANGE);
         setValidTimeRange(true);
+        setTimeout(() => {
+          const el = document.getElementById('dateCaledndar');
+          // console.log('hrere');
+          el?.click();
+        }, 500);
         return;
       }
       if (lastFetchedTimeRange !== timeRangeValue) {
@@ -164,6 +169,11 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
             setValidTimeRange(true);
           }
           setLastFetchedTimeRange(timeRangeValue);
+          setTimeout(() => {
+            const el = document.getElementById('dateCaledndar');
+            console.log('hrere');
+            el?.click();
+          }, 500);
         });
       }
     },
@@ -172,6 +182,8 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
   );
 
   function onSave() {
+    // console.log('on Save click');
+    // console.log(timeRangeValue);
     onChange(timeRangeValue);
   }
 
@@ -188,11 +200,17 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
         }}
       >
         <div>
-          <CustomFrame value={timeRangeValue} onChange={setTimeRangeValue} />
+          <CustomFrame
+            onSave={onSave}
+            value={timeRangeValue}
+            onChange={setTimeRangeValue}
+          />
         </div>
+        {/* {timeRangeValue} */}
         {/* paddingTop: 18 */}
         <ButtonWrapper>
           <Button
+            id="dateCaledndar"
             style={{
               minWidth: 50,
               // position: 'absolute',
@@ -201,7 +219,6 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
             }}
             buttonStyle="primary"
             cta
-            disabled={!validTimeRange}
             key="apply"
             onClick={onSave}
             data-test={DATE_FILTER_TEST_KEY.applyButton}
