@@ -19,16 +19,17 @@ under the License.
 
 ## Change Log
 
-- [2.1.1](#211-sun-apr-23-154421-2023-0100)
-- [2.1.0](#210-thu-mar-16-211305-2023--0700)
-- [2.0.1](#201-fri-nov-4-103402-2022--0400)
-- [2.0.0](#200-tue-jun-28-085302-2022--0400)
-- [1.5.3 (LTS)](#153-thu-jan-5-150544-2023--0500)
-- [1.5.2](#152-wed-sep-14-171151-2022-0530)
-- [1.5.1](#151-thu-may-26-144520-2022-0300)
-- [1.5.0](#150-fri-apr-22-172330-2022--0400)
-- [1.4.2](#142-sat-mar-19-000806-2022-0200)
-- [1.4.1](#141)
+- [Change Log](#change-log)
+  - [2.1.1 (Sun Apr 23 15:44:21 2023 +0100)](#211-sun-apr-23-154421-2023-0100)
+  - [2.1.0 (Thu Mar 16 21:13:05 2023 -0700)](#210-thu-mar-16-211305-2023--0700)
+  - [2.0.1 (Fri Nov 4 10:34:02 2022 -0400)](#201-fri-nov-4-103402-2022--0400)
+  - [2.0.0 (Tue Jun 28 08:53:02 2022 -0400)](#200-tue-jun-28-085302-2022--0400)
+  - [1.5.3 (Thu Jan 5 15:05:44 2023 -0500)](#153-thu-jan-5-150544-2023--0500)
+  - [1.5.2 (Wed Sep 14 17:11:51 2022 +0530)](#152-wed-sep-14-171151-2022-0530)
+  - [1.5.1 (Thu May 26 14:45:20 2022 +0300)](#151-thu-may-26-144520-2022-0300)
+  - [1.5.0 (Fri Apr 22 17:23:30 2022 -0400)](#150-fri-apr-22-172330-2022--0400)
+  - [1.4.2 (Sat Mar 19 00:08:06 2022 +0200)](#142-sat-mar-19-000806-2022-0200)
+  - [1.4.1](#141)
 
 
 ### 2.1.1 (Sun Apr 23 15:44:21 2023 +0100)
@@ -39,6 +40,10 @@ under the License.
 
 **Fixes**
 - [#23723](https://github.com/apache/superset/pull/23723) fix: add enforce URI query params with a specific for MySQL (@dpgaspar)
+- [#24970](https://github.com/apache/superset/pull/24970) fix: update permalink schema (@eschutho)
+- [#24995](https://github.com/apache/superset/pull/24995) fix: Revert "fix(chart): Time Series set showMaxLabel as null for time xAxis (#20627) (@eschutho)
+- [#24513](https://github.com/apache/superset/pull/24513) fix(sqllab): normalize changedOn timestamp (@villebro)
+- [#23512](https://github.com/apache/superset/pull/23512) fix: Dashboard not loading with default first value in filter (@geido)
 - [#24482](https://github.com/apache/superset/pull/24482) fix(permalink): Incorrect component schema reference (@Nisden)
 - [#24166](https://github.com/apache/superset/pull/24166) fix(permalink): migrate to marshmallow codec (@villebro)
 - [#24697](https://github.com/apache/superset/pull/24697) fix: import database engine validation (@dpgaspar)
