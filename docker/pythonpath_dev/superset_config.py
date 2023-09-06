@@ -101,7 +101,9 @@ class CeleryConfig(object):
 CELERY_CONFIG = CeleryConfig
 
 FEATURE_FLAGS = {"ALERT_REPORTS": True,
-                 "GENERIC_CHART_AXES": True}
+                 "GENERIC_CHART_AXES": True,
+                 "ENABLE_TEMPLATE_PROCESSING": True,
+                 "EMBEDDED_SUPERSET": False}
 
 HTML_SANITIZATION = False
 
