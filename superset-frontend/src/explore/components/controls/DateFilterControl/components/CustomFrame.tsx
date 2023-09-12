@@ -82,9 +82,16 @@ export function CustomFrame(props: FrameComponentProps) {
   const localFromFlaskBabel = useSelector(
     (state: ExplorePageState) => state?.common?.locale,
   );
-
-  const [untilDate, setUntilDate] = useState('' as unknown as moment.Moment);
-  const [sinceDate, setSinceDate] = useState('' as unknown as moment.Moment);
+  const [untilDate, setUntilDate] = useState(
+    props.value !== 'No filter' && props.value.split(' : ').length > 1
+      ? moment(props.value.split(' : ')[1])
+      : ('' as unknown as moment.Moment),
+  );
+  const [sinceDate, setSinceDate] = useState(
+    props.value !== 'No filter' && props.value.split(' : ').length > 1
+      ? moment(props.value.split(' : ')[0])
+      : ('' as unknown as moment.Moment),
+  );
 
   const datePickerLocale =
     locales[LOCALE_MAPPING[localFromFlaskBabel]]?.DatePicker;
