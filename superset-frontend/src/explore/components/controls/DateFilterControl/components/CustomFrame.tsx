@@ -50,6 +50,7 @@ enum DateType {
   Month = 'month',
   LastMonth = 'lastMonth',
   LastYear = 'LastYear',
+  Last30Day = 'Last30Day',
 }
 
 export function CustomFrame(props: FrameComponentProps) {
@@ -131,8 +132,20 @@ export function CustomFrame(props: FrameComponentProps) {
       setUntilDate(moment(`${untilDate} 23:59:59`, `YYYY/MM/DD HH:mm:ss`));
     }
     if (type === DateType.Week) {
-      sinceDatetime = moment().subtract(1, 'weeks').format(MOMENT_FORMAT);
-      setSinceDate(moment().subtract(1, 'weeks'));
+      const sinceDate = moment().subtract(1, 'weeks').format(dateFormat);
+      sinceDatetime = moment(
+        `${sinceDate} 00:00:00`,
+        `YYYY/MM/DD HH:mm:ss`,
+      ).format(MOMENT_FORMAT);
+      setSinceDate(moment(`${sinceDate} 00:00:00`, `YYYY/MM/DD HH:mm:ss`));
+    }
+    if (type === DateType.Last30Day) {
+      const sinceDate = moment().subtract(1, 'month').format(dateFormat);
+      sinceDatetime = moment(
+        `${sinceDate} 00:00:00`,
+        `YYYY/MM/DD HH:mm:ss`,
+      ).format(MOMENT_FORMAT);
+      setSinceDate(moment(`${sinceDate} 00:00:00`, `YYYY/MM/DD HH:mm:ss`));
     }
     if (type === DateType.Month) {
       sinceDatetime = moment().startOf('month').format(MOMENT_FORMAT);
@@ -167,6 +180,12 @@ export function CustomFrame(props: FrameComponentProps) {
             buttonStyle="link"
           >
             Last Month
+          </Button>
+          <Button
+            onClick={() => selectDate(DateType.Last30Day)}
+            buttonStyle="link"
+          >
+            Last 30 Day
           </Button>
           <Button
             onClick={() => selectDate(DateType.LastYear)}
