@@ -538,6 +538,14 @@ class SliceHeaderControls extends React.PureComponent<
 
     return (
       <>
+        {slice.description && (
+          <Tooltip title={slice.description}>
+            <Icons.QuestionCircleOutlined
+              style={{ fontSize: 22, cursor: 'pointer' }}
+            />
+          </Tooltip>
+        )}
+
         <CrossFilterScopingModal
           chartId={slice.slice_id}
           isOpen={this.state.showCrossFilterScopingModal}
