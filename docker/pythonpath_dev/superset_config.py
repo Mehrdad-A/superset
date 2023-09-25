@@ -114,6 +114,29 @@ WEBDRIVER_BASEURL_USER_FRIENDLY = WEBDRIVER_BASEURL
 
 SQLLAB_CTAS_NO_LIMIT = True
 
+EXTRA_CATEGORICAL_COLOR_SCHEMES = [
+    {
+        "id": 'kudos001',
+        "description": 'Kudos Inc. Color Scheme 10 colors',
+        "label": 'Kudos Inc.',
+        "isDefault": False,
+        "colors":
+        ['#65BB47', '#FF9B26', '#07CCC1', '#FD7449', '#575F86',
+         '#FF7D95', '#12B5E9', '#858CAB', '#9974E8', '#5B93E7']
+    },
+    {
+        "id": 'kudos002',
+        "description": 'Kudos Inc. Color Scheme 20 colors',
+        "label": 'Kudos Inc. Extended',
+        "isDefault": False,
+        "colors":
+            ['#65BB47', '#FF9B26', '#07CCC1', '#FD7449', '#575F86',
+             '#FF7D95', '#12B5E9', '#858CAB', '#9974E8', '#5B93E7',
+             '#CCD94B', '#FF806B', '#FF4D39', '#B378E1', '#F82786',
+             '#13AB6B', '#8C88B5', '#AD6A61', '#0E99C4', '#553B8E']
+    }
+]
+
 #
 # Optionally import superset_config_docker.py (which will have been included on
 # the PYTHONPATH) in order to allow for local settings to be overridden
