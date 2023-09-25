@@ -25,7 +25,7 @@ var CalHeatMap = function () {
     .offset([-5, 0])
     .html(
       d => `
-      ${self.options.timeFormatter(d.t)}: <strong>${self.options.valueFormatter(
+      ${self.options.timeFormatter(d.t)}: <strong>${d.v === null ? 0 : self.options.valueFormatter(
         d.v,
       )}</strong>
     `,
@@ -742,7 +742,7 @@ var CalHeatMap = function () {
           self.getSubDomain(d).map(function (d) {
             return {
               t: self._domainType[self.options.subDomain].extractUnit(d),
-              v: null,
+              v: 0,
             };
           }),
         );
