@@ -137,6 +137,10 @@ EXTRA_CATEGORICAL_COLOR_SCHEMES = [
     }
 ]
 
+JINJA_CONTEXT_ADDONS = {
+    'baseurl': 'mybaseurl',
+}
+
 #
 # Optionally import superset_config_docker.py (which will have been included on
 # the PYTHONPATH) in order to allow for local settings to be overridden
