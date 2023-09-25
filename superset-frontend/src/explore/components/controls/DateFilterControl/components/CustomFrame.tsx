@@ -50,6 +50,8 @@ enum DateType {
   Month = 'month',
   LastMonth = 'lastMonth',
   LastYear = 'LastYear',
+  Last30Day = 'Last30Day',
+  Last90Day = 'Last90Day',
 }
 
 export function CustomFrame(props: FrameComponentProps) {
@@ -122,24 +124,46 @@ export function CustomFrame(props: FrameComponentProps) {
       [sinceDatetime, untilDatetime] = setLastMonth();
     } else if (type === DateType.LastYear) {
       [sinceDatetime, untilDatetime] = setLastYear();
-    } else if (type === DateType.Week) {
-      untilDatetime = moment().format(MOMENT_FORMAT);
-      setUntilDate(moment());
-      sinceDatetime = moment().subtract(1, 'weeks').format(MOMENT_FORMAT);
-      setSinceDate(moment().subtract(1, 'weeks'));
-    } else if (type === DateType.Month) {
-      untilDatetime = moment().format(MOMENT_FORMAT);
-      setUntilDate(moment());
+    } else {
+      const untilDate = moment().format(dateFormat);
+      untilDatetime = moment(
+        `${untilDate} 23:59:59`,
+        `YYYY/MM/DD HH:mm:ss`,
+      ).format(MOMENT_FORMAT);
+      setUntilDate(moment(`${untilDate} 23:59:59`, `YYYY/MM/DD HH:mm:ss`));
+    }
+    if (type === DateType.Week) {
+      const sinceDate = moment().subtract(1, 'weeks').format(dateFormat);
+      sinceDatetime = moment(
+        `${sinceDate} 00:00:00`,
+        `YYYY/MM/DD HH:mm:ss`,
+      ).format(MOMENT_FORMAT);
+      setSinceDate(moment(`${sinceDate} 00:00:00`, `YYYY/MM/DD HH:mm:ss`));
+    }
+    if (type === DateType.Last30Day) {
+      const sinceDate = moment().subtract(1, 'month').format(dateFormat);
+      sinceDatetime = moment(
+        `${sinceDate} 00:00:00`,
+        `YYYY/MM/DD HH:mm:ss`,
+      ).format(MOMENT_FORMAT);
+      setSinceDate(moment(`${sinceDate} 00:00:00`, `YYYY/MM/DD HH:mm:ss`));
+    }
+    if (type === DateType.Last90Day) {
+      const sinceDate = moment().subtract(3, 'month').format(dateFormat);
+      sinceDatetime = moment(
+        `${sinceDate} 00:00:00`,
+        `YYYY/MM/DD HH:mm:ss`,
+      ).format(MOMENT_FORMAT);
+      setSinceDate(moment(`${sinceDate} 00:00:00`, `YYYY/MM/DD HH:mm:ss`));
+    }
+    if (type === DateType.Month) {
       sinceDatetime = moment().startOf('month').format(MOMENT_FORMAT);
       setSinceDate(moment().startOf('month'));
-    } else if (type === DateType.Year) {
-      untilDatetime = moment().format(MOMENT_FORMAT);
-      setUntilDate(moment());
+    }
+    if (type === DateType.Year) {
       sinceDatetime = moment().startOf('year').format(MOMENT_FORMAT);
       setSinceDate(moment().startOf('year'));
     }
-    console.log(sinceDatetime);
-    console.log(untilDatetime);
     onChange({ sinceDatetime, untilDatetime });
   };
 
@@ -167,6 +191,18 @@ export function CustomFrame(props: FrameComponentProps) {
             Last Month
           </Button>
           <Button
+            onClick={() => selectDate(DateType.Last30Day)}
+            buttonStyle="link"
+          >
+            Last 30 Days
+          </Button>
+          <Button
+            onClick={() => selectDate(DateType.Last90Day)}
+            buttonStyle="link"
+          >
+            Last 90 Days
+          </Button>
+          <Button
             onClick={() => selectDate(DateType.LastYear)}
             buttonStyle="link"
           >
@@ -184,9 +220,19 @@ export function CustomFrame(props: FrameComponentProps) {
               if (arr !== null) {
                 setSinceDate(arr[0]!);
                 setUntilDate(arr[1]!);
+                const sinceDate = arr[0]?.format(dateFormat);
+                const untilDate = arr[1]?.format(dateFormat);
+                const sinceDatetime = moment(
+                  `${sinceDate} 00:00:00`,
+                  `YYYY/MM/DD HH:mm:ss`,
+                ).format(MOMENT_FORMAT);
+                const untilDatetime = moment(
+                  `${untilDate} 23:59:59`,
+                  `YYYY/MM/DD HH:mm:ss`,
+                ).format(MOMENT_FORMAT);
                 onChange({
-                  sinceDatetime: arr[0]?.format(MOMENT_FORMAT),
-                  untilDatetime: arr[1]?.format(MOMENT_FORMAT),
+                  sinceDatetime,
+                  untilDatetime,
                 });
               } else {
                 setSinceDate('' as unknown as moment.Moment);
