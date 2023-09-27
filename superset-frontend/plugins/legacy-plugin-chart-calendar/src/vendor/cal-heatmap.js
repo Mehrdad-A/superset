@@ -911,28 +911,25 @@ var CalHeatMap = function () {
     var svg = domainSvg
       .enter()
       .append('svg')
-      
       .attr('width', function (d) {
-        // TODO: w(d, true)
-        return h(d, true);
+        return w(d, true);
       })
       .attr('height', function (d) {
-        // TODO: h(d, true)
-        return w(d, true);
+        return h(d, true);
       })
       .attr('x', function (d) {
         if (options.verticalOrientation) {
-          self.graphDim.width = Math.max(self.graphDim.width, h(d, true));
+          self.graphDim.width = Math.max(self.graphDim.width, w(d, true));
           return 0;
         } else {
-          return getDomainPosition(d, self.graphDim, 'width', h(d, true));
+          return getDomainPosition(d, self.graphDim, 'width', w(d, true));
         }
       })
       .attr('y', function (d) {
         if (options.verticalOrientation) {
-          return getDomainPosition(d, self.graphDim, 'height', w(d, true));
+          return getDomainPosition(d, self.graphDim, 'height', h(d, true));
         } else {
-          self.graphDim.height = Math.max(self.graphDim.height, w(d, true));
+          self.graphDim.height = Math.max(self.graphDim.height, h(d, true));
           return 0;
         }
       })
@@ -1005,14 +1002,14 @@ var CalHeatMap = function () {
     // =========================================================================//
     var subDomainSvgGroup = svg
       .append('svg')
-      .attr('y', function () {
+      .attr('x', function () {
         if (options.label.position === 'left') {
           return self.domainHorizontalLabelWidth + options.domainMargin[3];
         } else {
           return options.domainMargin[3];
         }
       })
-      .attr('x', function () {
+      .attr('y', function () {
         if (options.label.position === 'top') {
           return self.domainVerticalLabelHeight + options.domainMargin[0];
         } else {
@@ -1036,12 +1033,12 @@ var CalHeatMap = function () {
           (options.onClick !== null ? ' hover_cursor' : '')
         );
       })
-      .attr('height', options.cellSize)
       .attr('width', options.cellSize)
-      .attr('y', function (d) {
+      .attr('height', options.cellSize)
+      .attr('x', function (d) {
         return self.positionSubDomainX(d.t);
       })
-      .attr('x', function (d) {
+      .attr('y', function (d) {
         return self.positionSubDomainY(d.t);
       })
       .on('click', function (d) {
@@ -1096,7 +1093,7 @@ var CalHeatMap = function () {
               y += self.domainVerticalLabelHeight / 2;
               break;
             case 'bottom':
-              y += w(d) + self.domainVerticalLabelHeight / 2;
+              y += h(d) + self.domainVerticalLabelHeight / 2;
           }
 
           return (
@@ -1114,11 +1111,11 @@ var CalHeatMap = function () {
           var x = options.domainMargin[3];
           switch (options.label.position) {
             case 'right':
-              x += h(d);
+              x += w(d);
               break;
             case 'bottom':
             case 'top':
-              x += h(d) / 2;
+              x += w(d) / 2;
           }
 
           if (options.label.align === 'right') {
@@ -1206,10 +1203,10 @@ var CalHeatMap = function () {
         .attr('class', function (d) {
           return 'subdomain-text' + self.getHighlightClassName(d.t);
         })
-        .attr('y', function (d) {
+        .attr('x', function (d) {
           return self.positionSubDomainX(d.t) + options.cellSize / 2;
         })
-        .attr('x', function (d) {
+        .attr('y', function (d) {
           return self.positionSubDomainY(d.t) + options.cellSize / 2;
         })
         .attr('text-anchor', 'middle')
