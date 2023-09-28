@@ -171,13 +171,6 @@ export function CustomFrame(props: FrameComponentProps) {
     <>
       <Row>
         <StyleDateFilterButtons>
-          <Button
-            onClick={() => selectDate(DateType.Week)}
-            style={{ paddingLeft: '0px' }}
-            buttonStyle="link"
-          >
-            This Week
-          </Button>
           <Button onClick={() => selectDate(DateType.Month)} buttonStyle="link">
             This Month
           </Button>
@@ -189,18 +182,6 @@ export function CustomFrame(props: FrameComponentProps) {
             buttonStyle="link"
           >
             Last Month
-          </Button>
-          <Button
-            onClick={() => selectDate(DateType.Last30Day)}
-            buttonStyle="link"
-          >
-            Last 30 Days
-          </Button>
-          <Button
-            onClick={() => selectDate(DateType.Last90Day)}
-            buttonStyle="link"
-          >
-            Last 90 Days
           </Button>
           <Button
             onClick={() => selectDate(DateType.LastYear)}
