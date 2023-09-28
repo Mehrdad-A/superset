@@ -19,26 +19,17 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { t, styled } from '@superset-ui/core';
-import moment, { Moment } from 'moment';
-// import { isInteger } from 'lodash';
-// @ts-ignore
+import moment from 'moment';
 import { locales } from 'antd/dist/antd-with-locales';
 import { Row } from 'src/components';
 import { DatePicker } from 'src/components/DatePicker';
 import {
-  // SINCE_GRAIN_OPTIONS,
-  // SINCE_MODE_OPTIONS,
-  // UNTIL_GRAIN_OPTIONS,
-  // UNTIL_MODE_OPTIONS,
   MOMENT_FORMAT,
-  // MIDNIGHT,
   customTimeRangeDecode,
   customTimeRangeEncode,
-  // dttmToMoment,
   LOCALE_MAPPING,
 } from 'src/explore/components/controls/DateFilterControl/utils';
 import {
-  CustomRangeKey,
   FrameComponentProps,
 } from 'src/explore/components/controls/DateFilterControl/types';
 import { ExplorePageState } from 'src/explore/types';
@@ -46,19 +37,15 @@ import Button from 'src/components/Button';
 
 enum DateType {
   Year = 'year',
-  Week = 'week',
   Month = 'month',
   LastMonth = 'lastMonth',
   LastYear = 'LastYear',
-  Last30Day = 'Last30Day',
-  Last90Day = 'Last90Day',
 }
 
 export function CustomFrame(props: FrameComponentProps) {
   const { customRange, matchedFlag } = customTimeRangeDecode(props.value);
   if (!matchedFlag) {
     customRange.sinceMode = 'specific';
-    // props.onChange(customTimeRangeEncode(customRange));
   }
 
   function onChange(controls: object) {
@@ -80,7 +67,6 @@ export function CustomFrame(props: FrameComponentProps) {
 
   const { RangePicker } = DatePicker;
   const dateFormat = 'YYYY/MM/DD';
-  // check if there is a locale defined for explore
   const localFromFlaskBabel = useSelector(
     (state: ExplorePageState) => state?.common?.locale,
   );
@@ -95,8 +81,7 @@ export function CustomFrame(props: FrameComponentProps) {
       : ('' as unknown as moment.Moment),
   );
 
-  const datePickerLocale =
-    locales[LOCALE_MAPPING[localFromFlaskBabel]]?.DatePicker;
+  const datePickerLocale = locales[LOCALE_MAPPING[localFromFlaskBabel]]?.DatePicker;
 
   const setLastMonth = () => {
     const sinceDatetime = moment().subtract(1, 'months').startOf('month');
@@ -132,30 +117,6 @@ export function CustomFrame(props: FrameComponentProps) {
       ).format(MOMENT_FORMAT);
       setUntilDate(moment(`${untilDate} 23:59:59`, `YYYY/MM/DD HH:mm:ss`));
     }
-    if (type === DateType.Week) {
-      const sinceDate = moment().subtract(1, 'weeks').format(dateFormat);
-      sinceDatetime = moment(
-        `${sinceDate} 00:00:00`,
-        `YYYY/MM/DD HH:mm:ss`,
-      ).format(MOMENT_FORMAT);
-      setSinceDate(moment(`${sinceDate} 00:00:00`, `YYYY/MM/DD HH:mm:ss`));
-    }
-    if (type === DateType.Last30Day) {
-      const sinceDate = moment().subtract(1, 'month').format(dateFormat);
-      sinceDatetime = moment(
-        `${sinceDate} 00:00:00`,
-        `YYYY/MM/DD HH:mm:ss`,
-      ).format(MOMENT_FORMAT);
-      setSinceDate(moment(`${sinceDate} 00:00:00`, `YYYY/MM/DD HH:mm:ss`));
-    }
-    if (type === DateType.Last90Day) {
-      const sinceDate = moment().subtract(3, 'month').format(dateFormat);
-      sinceDatetime = moment(
-        `${sinceDate} 00:00:00`,
-        `YYYY/MM/DD HH:mm:ss`,
-      ).format(MOMENT_FORMAT);
-      setSinceDate(moment(`${sinceDate} 00:00:00`, `YYYY/MM/DD HH:mm:ss`));
-    }
     if (type === DateType.Month) {
       sinceDatetime = moment().startOf('month').format(MOMENT_FORMAT);
       setSinceDate(moment().startOf('month'));
@@ -171,41 +132,16 @@ export function CustomFrame(props: FrameComponentProps) {
     <>
       <Row>
         <StyleDateFilterButtons>
-          <Button
-            onClick={() => selectDate(DateType.Week)}
-            style={{ paddingLeft: '0px' }}
-            buttonStyle="link"
-          >
-            This Week
-          </Button>
           <Button onClick={() => selectDate(DateType.Month)} buttonStyle="link">
             This Month
           </Button>
           <Button onClick={() => selectDate(DateType.Year)} buttonStyle="link">
             This Year
           </Button>
-          <Button
-            onClick={() => selectDate(DateType.LastMonth)}
-            buttonStyle="link"
-          >
+          <Button onClick={() => selectDate(DateType.LastMonth)} buttonStyle="link">
             Last Month
           </Button>
-          <Button
-            onClick={() => selectDate(DateType.Last30Day)}
-            buttonStyle="link"
-          >
-            Last 30 Days
-          </Button>
-          <Button
-            onClick={() => selectDate(DateType.Last90Day)}
-            buttonStyle="link"
-          >
-            Last 90 Days
-          </Button>
-          <Button
-            onClick={() => selectDate(DateType.LastYear)}
-            buttonStyle="link"
-          >
+          <Button onClick={() => selectDate(DateType.LastYear)} buttonStyle="link">
             Last Year
           </Button>
         </StyleDateFilterButtons>
@@ -242,11 +178,6 @@ export function CustomFrame(props: FrameComponentProps) {
                   untilDatetime: '',
                 });
               }
-              // setTimeout(() => {
-              //   if (props.onSave) {
-              //     props.onSave();
-              //   }
-              // }, 2000);
             }}
           />
         </Row>
@@ -254,3 +185,4 @@ export function CustomFrame(props: FrameComponentProps) {
     </>
   );
 }
+
