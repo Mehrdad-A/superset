@@ -125,6 +125,8 @@ const StyledFilterContainer = styled.div`
 class FilterBox extends React.PureComponent {
   constructor(props) {
     super(props);
+    console.log('@@@@@@@@');
+    console.log(props);
     this.state = {
       selectedValues: props.origSelectedValues,
       // this flag is used by non-instant filter, to make the apply button enabled/disabled

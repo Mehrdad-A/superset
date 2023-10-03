@@ -77,6 +77,8 @@ export const fetchTimeRange = async (
     );
     return {
       value: formatTimeRange(timeRangeString, columnPlaceholder),
+      since: response?.json?.result?.since || '',
+      until: response?.json?.result?.until || '',
     };
   } catch (response) {
     const clientError = await getClientErrorObject(response);
