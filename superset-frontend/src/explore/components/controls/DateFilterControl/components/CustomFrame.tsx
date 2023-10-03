@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { t, styled } from '@superset-ui/core';
 import moment, { Moment } from 'moment';
@@ -46,12 +46,10 @@ import Button from 'src/components/Button';
 
 enum DateType {
   Year = 'year',
-  Week = 'week',
   Month = 'month',
   LastMonth = 'lastMonth',
   LastYear = 'LastYear',
-  Last30Day = 'Last30Day',
-  Last90Day = 'Last90Day',
+  LastQuarter = 'LastQuarter',
 }
 
 export function CustomFrame(props: FrameComponentProps) {
@@ -81,6 +79,7 @@ export function CustomFrame(props: FrameComponentProps) {
   const { RangePicker } = DatePicker;
   const dateFormat = 'YYYY/MM/DD';
   // check if there is a locale defined for explore
+
   const localFromFlaskBabel = useSelector(
     (state: ExplorePageState) => state?.common?.locale,
   );
@@ -89,11 +88,23 @@ export function CustomFrame(props: FrameComponentProps) {
       ? moment(props.value.split(' : ')[1])
       : ('' as unknown as moment.Moment),
   );
+
   const [sinceDate, setSinceDate] = useState(
     props.value !== 'No filter' && props.value.split(' : ').length > 1
       ? moment(props.value.split(' : ')[0])
       : ('' as unknown as moment.Moment),
   );
+
+  useEffect(() => {
+    if (
+      props.value !== 'No filter' &&
+      props.value !== '' &&
+      props.value.split(' : ').length > 1
+    ) {
+      setSinceDate(moment(props.value.split(' : ')[0]));
+      setUntilDate(moment(props.value.split(' : ')[1]));
+    }
+  }, [props.value]);
 
   const datePickerLocale =
     locales[LOCALE_MAPPING[localFromFlaskBabel]]?.DatePicker;
@@ -118,12 +129,31 @@ export function CustomFrame(props: FrameComponentProps) {
       untilDatetime.format(MOMENT_FORMAT),
     ];
   };
+  const setLastQuarter = () => {
+    const sinceDatetime = moment().subtract(1, 'quarter');
+    const untilDatetime = moment();
+    // const untilDatetime = moment().subtract(1, 'years').endOf('year');
+    setSinceDate(sinceDatetime);
+    setUntilDate(untilDatetime);
+    return [
+      sinceDatetime.format(MOMENT_FORMAT),
+      untilDatetime.format(MOMENT_FORMAT),
+    ];
+  };
+
+  // const setLastState = state => [`Last ${state}`, 'today'];
+
+  // datetrunc(datetime(!'today!'), year)
   const selectDate = (type: DateType) => {
     let [sinceDatetime, untilDatetime] = '';
+    let timeRange;
     if (type === DateType.LastMonth) {
       [sinceDatetime, untilDatetime] = setLastMonth();
     } else if (type === DateType.LastYear) {
       [sinceDatetime, untilDatetime] = setLastYear();
+    } else if (type === DateType.LastQuarter) {
+      timeRange = 'Last quarter';
+      [sinceDatetime, untilDatetime] = setLastQuarter();
     } else {
       const untilDate = moment().format(dateFormat);
       untilDatetime = moment(
@@ -131,30 +161,6 @@ export function CustomFrame(props: FrameComponentProps) {
         `YYYY/MM/DD HH:mm:ss`,
       ).format(MOMENT_FORMAT);
       setUntilDate(moment(`${untilDate} 23:59:59`, `YYYY/MM/DD HH:mm:ss`));
-    }
-    if (type === DateType.Week) {
-      const sinceDate = moment().subtract(1, 'weeks').format(dateFormat);
-      sinceDatetime = moment(
-        `${sinceDate} 00:00:00`,
-        `YYYY/MM/DD HH:mm:ss`,
-      ).format(MOMENT_FORMAT);
-      setSinceDate(moment(`${sinceDate} 00:00:00`, `YYYY/MM/DD HH:mm:ss`));
-    }
-    if (type === DateType.Last30Day) {
-      const sinceDate = moment().subtract(1, 'month').format(dateFormat);
-      sinceDatetime = moment(
-        `${sinceDate} 00:00:00`,
-        `YYYY/MM/DD HH:mm:ss`,
-      ).format(MOMENT_FORMAT);
-      setSinceDate(moment(`${sinceDate} 00:00:00`, `YYYY/MM/DD HH:mm:ss`));
-    }
-    if (type === DateType.Last90Day) {
-      const sinceDate = moment().subtract(3, 'month').format(dateFormat);
-      sinceDatetime = moment(
-        `${sinceDate} 00:00:00`,
-        `YYYY/MM/DD HH:mm:ss`,
-      ).format(MOMENT_FORMAT);
-      setSinceDate(moment(`${sinceDate} 00:00:00`, `YYYY/MM/DD HH:mm:ss`));
     }
     if (type === DateType.Month) {
       sinceDatetime = moment().startOf('month').format(MOMENT_FORMAT);
@@ -164,20 +170,17 @@ export function CustomFrame(props: FrameComponentProps) {
       sinceDatetime = moment().startOf('year').format(MOMENT_FORMAT);
       setSinceDate(moment().startOf('year'));
     }
-    onChange({ sinceDatetime, untilDatetime });
+    if (timeRange) {
+      onChange({ timeRange });
+    } else {
+      onChange({ sinceDatetime, untilDatetime });
+    }
   };
 
   return (
     <>
       <Row>
         <StyleDateFilterButtons>
-          <Button
-            onClick={() => selectDate(DateType.Week)}
-            style={{ paddingLeft: '0px' }}
-            buttonStyle="link"
-          >
-            This Week
-          </Button>
           <Button onClick={() => selectDate(DateType.Month)} buttonStyle="link">
             This Month
           </Button>
@@ -191,16 +194,10 @@ export function CustomFrame(props: FrameComponentProps) {
             Last Month
           </Button>
           <Button
-            onClick={() => selectDate(DateType.Last30Day)}
+            onClick={() => selectDate(DateType.LastQuarter)}
             buttonStyle="link"
           >
-            Last 30 Days
-          </Button>
-          <Button
-            onClick={() => selectDate(DateType.Last90Day)}
-            buttonStyle="link"
-          >
-            Last 90 Days
+            Last Quarter
           </Button>
           <Button
             onClick={() => selectDate(DateType.LastYear)}

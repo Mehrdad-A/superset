@@ -63,6 +63,7 @@ export type CustomRangeType = {
   untilGrainValue: number;
   anchorMode: 'now' | 'specific';
   anchorValue: string;
+  timeRange?: string;
 };
 
 export type CustomRangeDecodeType = {
