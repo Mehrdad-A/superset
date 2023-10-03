@@ -26,6 +26,26 @@ const ReactComponent = reactify(Component);
 
 const Calendar = ({ className, ...otherProps }) => {
   const theme = useTheme();
+  const dayName = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+  const DayDivContainer = styled.div`
+    display: flex;
+    padding: 0 12px;
+  `;
+  const DayDive = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: ${otherProps.cellSize}px;
+    width: ${otherProps.cellSize}px;
+    margin-right: ${otherProps.cellPadding}px;
+  `;
+  const NavigationBar = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: ${7 * (otherProps.cellSize + otherProps.cellPadding)}px;
+    height: ${otherProps.cellSize}px;
+    padding: 0 12px;
+  `;
   return (
     <div className={className}>
       <Global
@@ -83,6 +103,19 @@ const Calendar = ({ className, ...otherProps }) => {
           }
         `}
       />
+      <NavigationBar>
+        <div id="prev" style={{ cursor: 'pointer' }}>
+          prev
+        </div>
+        <div id="next" style={{ cursor: 'pointer' }}>
+          next
+        </div>
+      </NavigationBar>
+      <DayDivContainer>
+        {dayName.map((day, index) => (
+          <DayDive key={index}>{day}</DayDive>
+        ))}
+      </DayDivContainer>
       <ReactComponent {...otherProps} theme={theme} />
     </div>
   );
