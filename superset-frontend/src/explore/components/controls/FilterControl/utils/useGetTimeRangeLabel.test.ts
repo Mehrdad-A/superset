@@ -63,9 +63,12 @@ test('should get "No filter" label', () => {
 });
 
 test('should get actualTimeRange and title', async () => {
-  jest
-    .spyOn(FetchTimeRangeModule, 'fetchTimeRange')
-    .mockResolvedValue({ value: 'MOCK TIME' });
+  jest.spyOn(FetchTimeRangeModule, 'fetchTimeRange').mockResolvedValue({
+    value: 'MOCK TIME',
+    since: '',
+    until: '',
+    error: undefined,
+  });
 
   const adhocFilter = new AdhocFilter({
     expressionType: EXPRESSION_TYPES.SIMPLE,

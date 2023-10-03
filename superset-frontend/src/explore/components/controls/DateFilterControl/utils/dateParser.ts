@@ -204,7 +204,6 @@ export const customTimeRangeEncode = (customRange: CustomRangeType): string => {
     return timeRange;
   }
   if (sinceDatetime || untilDatetime) {
-
     return `${sinceDatetime} : ${untilDatetime}`;
   }
   return 'No filter';
