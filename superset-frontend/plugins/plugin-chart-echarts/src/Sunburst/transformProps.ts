@@ -294,7 +294,6 @@ export default function transformProps(
         value,
         secondaryValue,
         groupBy,
-        colour,
       } = treeNode;
       const records = [...(pathRecords || []), nodeName];
       let name = formatSeriesName(nodeName, {
