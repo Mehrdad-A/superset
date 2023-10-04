@@ -311,7 +311,7 @@ export default function transformProps(
             ? treeNode.colour
             : shadeColor(
                 treeNode.colour,
-                (Math.floor(Math.random() * 9) + 2) * 10,
+                (Math.floor(Math.random() * 7) + 2) * 10,
               ),
         },
       };
