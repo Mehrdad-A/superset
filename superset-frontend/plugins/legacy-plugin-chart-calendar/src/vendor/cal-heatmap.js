@@ -228,7 +228,12 @@ var CalHeatMap = function () {
     //
     // Refer to https://github.com/mbostock/d3/wiki/Time-Formatting
     // for accepted date formatting used by d3.time.format()
-    domainLabelFormat: null,
+    domainLabelFormat: function(d) {
+      const formatMonth = d3.time.format('%B %Y');
+      // console.log('fuck')
+      // console.log(d)
+      return formatMonth(d)
+    },
 
     // Formatting of the title displayed when hovering a subDomain cell
     subDomainTitleFormat: {
@@ -922,7 +927,7 @@ var CalHeatMap = function () {
       })
       .attr('height', function (d) {
         // TODO: h(d, true)
-        return w(d, true);
+        return w(d, true) + 30;
       })
       .attr('x', function (d) {
         if (options.verticalOrientation) {
@@ -1028,12 +1033,6 @@ var CalHeatMap = function () {
       })
       .attr('class', 'graph-subdomain-group')
 
-    // svg
-    //   .append('rec')
-    //   .data(function () {
-    //     return 'fuck'
-    //   })
-    //   .enter()
     
 
     var rect = subDomainSvgGroup
@@ -1106,13 +1105,13 @@ var CalHeatMap = function () {
         .append('text')
         .attr('class', 'graph-label')
         .attr('y', function (d) {
-          var y = options.domainMargin[0];
+          var y = options.domainMargin[0] - 10;
           switch (options.label.position) {
             case 'top':
               y += self.domainVerticalLabelHeight / 2;
               break;
             case 'bottom':
-              y += w(d) + self.domainVerticalLabelHeight / 2;
+              y += w(d) + self.domainVerticalLabelHeight / 2 ;
           }
 
           return (
@@ -1776,7 +1775,11 @@ CalHeatMap.prototype = {
       if (typeof options.subDomainTextFormat === 'function') {
         element.text(function (d) {
           if (d.v === null) d.v = 0
-          return options.subDomainTextFormat(d.t, d.v);
+          let dateObj = new Date(d.t);
+          let utcString = dateObj.toUTCString();
+          const formatDay = d3.time.format('%d');
+          return formatDay(new Date(utcString))
+          // return options.subDomainTextFormat(d.t, d.v) ;
         });
       }
     }
@@ -3210,7 +3213,7 @@ CalHeatMap.prototype = {
         ) {
           return Math.max(graphHeight, legendHeight);
         }
-        return graphHeight + legendHeight;
+        return graphHeight + legendHeight + 30;
       });
 
     this.root

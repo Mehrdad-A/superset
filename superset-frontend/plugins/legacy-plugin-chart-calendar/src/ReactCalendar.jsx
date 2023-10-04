@@ -42,9 +42,9 @@ const Calendar = ({ className, ...otherProps }) => {
   const NavigationBar = styled.div`
     display: flex;
     justify-content: space-between;
-    width: ${7 * (otherProps.cellSize + otherProps.cellPadding)}px;
+    width: ${7 * (otherProps.cellSize + otherProps.cellPadding * 2) - 12}px;
     height: ${otherProps.cellSize}px;
-    padding: 0 12px;
+    padding-left: 12px;
   `;
   return (
     <div className={className}>
