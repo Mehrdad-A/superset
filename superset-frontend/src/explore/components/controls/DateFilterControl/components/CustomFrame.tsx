@@ -180,7 +180,7 @@ export function CustomFrame(props: FrameComponentProps) {
   return (
     <>
       <Row>
-      <StyleDateFilterButtons>
+        <StyleDateFilterButtons>
           <Button onClick={() => selectDate(DateType.Month)} buttonStyle="link">
             This Month
           </Button>
