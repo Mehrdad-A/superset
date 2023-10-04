@@ -198,13 +198,13 @@ export const customTimeRangeEncode = (customRange: CustomRangeType): string => {
     untilGrain,
     untilGrainValue,
     anchorValue,
+    timeRange,
   } = { ...customRange };
+  if (timeRange) {
+    return timeRange;
+  }
   if (sinceDatetime || untilDatetime) {
-    const since =
-      sinceMode === 'specific' ? dttmToString(sinceDatetime) : sinceMode;
-    const until =
-      untilMode === 'specific' ? dttmToString(untilDatetime) : untilMode;
-    return `${since} : ${until}`;
+    return `${sinceDatetime} : ${untilDatetime}`;
   }
   return 'No filter';
 };

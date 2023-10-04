@@ -17,35 +17,19 @@
  * under the License.
  */
 import React, { ReactNode, useState, useEffect, useMemo } from 'react';
-import {
-  css,
-  styled,
-  t,
-  useTheme,
-  NO_TIME_RANGE,
-  SupersetTheme,
-} from '@superset-ui/core';
+import { styled, NO_TIME_RANGE } from '@superset-ui/core';
 import Button from 'src/components/Button';
 import { useDebouncedEffect } from 'src/explore/exploreUtils';
 import { SLOW_DEBOUNCE } from 'src/constants';
-import { noOp } from 'src/utils/common';
-import { useCSSTextTruncation } from 'src/hooks/useTruncation';
 
 import { DateFilterControlProps, FrameType } from './types';
 import {
   DATE_FILTER_TEST_KEY,
   fetchTimeRange,
-  // FRAME_OPTIONS,
   guessFrame,
   useDefaultTimeFilter,
 } from './utils';
-import {
-  // CommonFrame,
-  // CalendarFrame,
-  CustomFrame,
-  // AdvancedFrame,
-  // DateLabel,
-} from './components';
+import { CustomFrame } from './components';
 
 const ButtonWrapper = styled.div`
   display: none;
@@ -54,126 +38,59 @@ const ButtonWrapper = styled.div`
   // flex-direction: column;
 `;
 
-const getTooltipTitle = (
-  isLabelTruncated: boolean,
-  label: string | undefined,
-  range: string | undefined,
-) =>
-  isLabelTruncated ? (
-    <div>
-      {label && <strong>{label}</strong>}
-      {range && (
-        <div
-          css={(theme: SupersetTheme) => css`
-            margin-top: ${theme.gridUnit}px;
-          `}
-        >
-          {range}
-        </div>
-      )}
-    </div>
-  ) : (
-    range || null
-  );
-
 export default function DateFilterLabel(props: DateFilterControlProps) {
-  const {
-    onChange,
-    // onOpenPopover = noOp,
-    onClosePopover = noOp,
-    // overlayStyle = 'Popover',
-    // isOverflowingFilterBar = false,
-  } = props;
+  const { onChange } = props;
   const defaultTimeFilter = useDefaultTimeFilter();
 
   const value = props.value ?? defaultTimeFilter;
-  // const [actualTimeRange, setActualTimeRange] = useState<string>(value);
 
-  // const [show, setShow] = useState<boolean>(false);
-  const guessedFrame = useMemo(() => guessFrame(value), [value]);
-  // const [frame, setFrame] = useState<FrameType>(guessedFrame);
   const [lastFetchedTimeRange, setLastFetchedTimeRange] = useState(value);
-  const [timeRangeValue, setTimeRangeValue] = useState(value);
+  const [timeRangeValue, setTimeRangeValue] = useState('');
   const [validTimeRange, setValidTimeRange] = useState<boolean>(false);
-  // const [evalResponse, setEvalResponse] = useState<string>(value);
-  // const [tooltipTitle, setTooltipTitle] = useState<ReactNode | null>(value);
-  // const theme = useTheme();
-  const [labelRef, labelIsTruncated] = useCSSTextTruncation<HTMLSpanElement>();
 
   useEffect(() => {
     if (value === NO_TIME_RANGE) {
-      // setActualTimeRange(NO_TIME_RANGE);
-      // setTooltipTitle(null);
       setValidTimeRange(true);
       return;
     }
-    fetchTimeRange(value).then(({ value: actualRange, error }) => {
-      if (error) {
-        // setEvalResponse(error || '');
+    fetchTimeRange(value).then(res => {
+      if (res.error) {
         setValidTimeRange(false);
-        // setTooltipTitle(value || null);
       } else {
-        /*
-          HRT == human readable text
-          ADR == actual datetime range
-          +--------------+------+----------+--------+----------+-----------+
-          |              | Last | Previous | Custom | Advanced | No Filter |
-          +--------------+------+----------+--------+----------+-----------+
-          | control pill | HRT  | HRT      | ADR    | ADR      |   HRT     |
-          +--------------+------+----------+--------+----------+-----------+
-          | tooltip      | ADR  | ADR      | HRT    | HRT      |   ADR     |
-          +--------------+------+----------+--------+----------+-----------+
-        */
-        if (
-          guessedFrame === 'Common' ||
-          guessedFrame === 'Calendar' ||
-          guessedFrame === 'No filter'
-        ) {
-          // setActualTimeRange(value);
-          // setTooltipTitle(
-          //   getTooltipTitle(labelIsTruncated, value, actualRange),
-          // );
-        } else {
-          // setActualTimeRange(actualRange || '');
-          // setTooltipTitle(
-          //   getTooltipTitle(labelIsTruncated, actualRange, value),
-          // );
-        }
         setValidTimeRange(true);
+        if (res.since && res.until) {
+          setLastFetchedTimeRange(`${res.since} : ${res.until}`);
+          setTimeRangeValue(`${res.since} : ${res.until}`);
+        } else {
+          setLastFetchedTimeRange(res.value);
+          setTimeRangeValue(res.value || '');
+        }
       }
-      setLastFetchedTimeRange(value);
-      // setEvalResponse(actualRange || value);
     });
-  }, [guessedFrame, labelIsTruncated, labelRef, value]);
+  }, []);
+
+  function onSave() {
+    onChange(timeRangeValue);
+  }
 
   useDebouncedEffect(
     () => {
+      if (timeRangeValue === '') return;
       if (timeRangeValue === NO_TIME_RANGE) {
-        // setEvalResponse(NO_TIME_RANGE);
         setLastFetchedTimeRange(NO_TIME_RANGE);
         setValidTimeRange(true);
-        setTimeout(() => {
-          const el = document.getElementById('dateCaledndar');
-          // console.log('hrere');
-          el?.click();
-        }, 500);
+        onSave();
         return;
       }
       if (lastFetchedTimeRange !== timeRangeValue) {
-        fetchTimeRange(timeRangeValue).then(({ value: actualRange, error }) => {
-          if (error) {
-            // setEvalResponse(error || '');
+        fetchTimeRange(timeRangeValue).then(res => {
+          if (res.error) {
             setValidTimeRange(false);
           } else {
-            // setEvalResponse(actualRange || '');
             setValidTimeRange(true);
+            setLastFetchedTimeRange(timeRangeValue);
+            onSave();
           }
-          setLastFetchedTimeRange(timeRangeValue);
-          setTimeout(() => {
-            const el = document.getElementById('dateCaledndar');
-            console.log('hrere');
-            el?.click();
-          }, 500);
         });
       }
     },
@@ -181,51 +98,19 @@ export default function DateFilterLabel(props: DateFilterControlProps) {
     [timeRangeValue],
   );
 
-  function onSave() {
-    // console.log('on Save click');
-    // console.log(timeRangeValue);
-    onChange(timeRangeValue);
-  }
-
   return (
     <>
       <div
-        className="test"
         style={{
           padding: '0 0 0 12px',
           display: 'flex',
           flexDirection: 'column',
-          // justifyContent: 'space-between',
           gap: '24px',
         }}
       >
         <div>
-          <CustomFrame
-            onSave={onSave}
-            value={timeRangeValue}
-            onChange={setTimeRangeValue}
-          />
+          <CustomFrame value={timeRangeValue} onChange={setTimeRangeValue} />
         </div>
-        {/* {timeRangeValue} */}
-        {/* paddingTop: 18 */}
-        <ButtonWrapper>
-          <Button
-            id="dateCaledndar"
-            style={{
-              minWidth: 50,
-              // position: 'absolute',
-              // left: '295px',
-              // top: '30px',
-            }}
-            buttonStyle="primary"
-            cta
-            key="apply"
-            onClick={onSave}
-            data-test={DATE_FILTER_TEST_KEY.applyButton}
-          >
-            {t('APPLY')}
-          </Button>
-        </ButtonWrapper>
       </div>
     </>
   );
