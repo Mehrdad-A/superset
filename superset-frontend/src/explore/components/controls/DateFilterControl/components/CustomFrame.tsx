@@ -130,8 +130,8 @@ export function CustomFrame(props: FrameComponentProps) {
     ];
   };
   const setLastQuarter = () => {
-    const sinceDatetime = moment().subtract(1, 'quarter');
-    const untilDatetime = moment();
+    const sinceDatetime = moment().subtract(1, 'quarter').startOf('quarter');
+    const untilDatetime = moment().subtract(1, 'quarter').endOf('quarter');
     // const untilDatetime = moment().subtract(1, 'years').endOf('year');
     setSinceDate(sinceDatetime);
     setUntilDate(untilDatetime);
