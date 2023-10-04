@@ -44,7 +44,7 @@ export function treeBuilder(
     curData,
     (result, value, key) => {
       const name = curData[key][0][curGroupBy]!;
-      const colour = curData[key][0].colour || '';
+      const colour = (curData[key][0].colour || '') as string;
       if (!restGroupby.length) {
         (value ?? []).forEach(datum => {
           const metricValue = getMetricValue(datum, metric);
