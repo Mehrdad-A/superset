@@ -289,12 +289,7 @@ export default function transformProps(
     pathRecords?: DataRecordValue[],
   ) =>
     treeNodes.map(treeNode => {
-      const {
-        name: nodeName,
-        value,
-        secondaryValue,
-        groupBy,
-      } = treeNode;
+      const { name: nodeName, value, secondaryValue, groupBy } = treeNode;
       const records = [...(pathRecords || []), nodeName];
       let name = formatSeriesName(nodeName, {
         numberFormatter,
