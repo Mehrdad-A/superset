@@ -191,13 +191,22 @@ export function CustomFrame(props: FrameComponentProps) {
             buttonStyle="link">
             This Year
           </Button>
-          <Button onClick={() => selectDate(DateType.LastMonth)} buttonStyle="link">
+          <Button
+            onClick={() => selectDate(DateType.LastMonth)}
+            buttonStyle="link"
+          >
             Last Month
           </Button>
-          <Button onClick={() => selectDate(DateType.LastQuarter)} buttonStyle="link">
+          <Button
+            onClick={() => selectDate(DateType.LastQuarter)}
+            buttonStyle="link"
+          >
             Last Quarter
           </Button>
-          <Button onClick={() => selectDate(DateType.LastYear)} buttonStyle="link">
+          <Button
+            onClick={() => selectDate(DateType.LastYear)}
+            buttonStyle="link"
+          >
             Last Year
           </Button>
         </StyleDateFilterButtons>
