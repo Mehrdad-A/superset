@@ -187,22 +187,13 @@ export function CustomFrame(props: FrameComponentProps) {
           <Button onClick={() => selectDate(DateType.Year)} buttonStyle="link">
             This Year
           </Button>
-          <Button
-            onClick={() => selectDate(DateType.LastMonth)}
-            buttonStyle="link"
-          >
+          <Button onClick={() => selectDate(DateType.LastMonth)} buttonStyle="link">
             Last Month
           </Button>
-          <Button
-            onClick={() => selectDate(DateType.LastQuarter)}
-            buttonStyle="link"
-          >
+          <Button onClick={() => selectDate(DateType.LastQuarter)} buttonStyle="link">
             Last Quarter
           </Button>
-          <Button
-            onClick={() => selectDate(DateType.LastYear)}
-            buttonStyle="link"
-          >
+          <Button onClick={() => selectDate(DateType.LastYear)} buttonStyle="link">
             Last Year
           </Button>
         </StyleDateFilterButtons>
@@ -239,11 +230,6 @@ export function CustomFrame(props: FrameComponentProps) {
                   untilDatetime: '',
                 });
               }
-              // setTimeout(() => {
-              //   if (props.onSave) {
-              //     props.onSave();
-              //   }
-              // }, 2000);
             }}
           />
         </Row>
