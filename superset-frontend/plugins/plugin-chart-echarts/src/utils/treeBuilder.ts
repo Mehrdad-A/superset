@@ -25,6 +25,7 @@ export type TreeNode = {
   secondaryValue: number;
   groupBy: string;
   children?: TreeNode[];
+  colour: string;
 };
 
 function getMetricValue(datum: DataRecord, metric: string) {
@@ -43,6 +44,7 @@ export function treeBuilder(
     curData,
     (result, value, key) => {
       const name = curData[key][0][curGroupBy]!;
+      const colour = (curData[key][0].colour || '') as string;
       if (!restGroupby.length) {
         (value ?? []).forEach(datum => {
           const metricValue = getMetricValue(datum, metric);
@@ -54,6 +56,7 @@ export function treeBuilder(
             value: metricValue,
             secondaryValue,
             groupBy: curGroupBy,
+            colour,
           };
           result.push(item);
         });
@@ -80,6 +83,7 @@ export function treeBuilder(
           value: metricValue,
           secondaryValue,
           groupBy: curGroupBy,
+          colour,
         });
       }
     },

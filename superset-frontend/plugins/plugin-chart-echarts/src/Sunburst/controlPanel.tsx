@@ -160,10 +160,10 @@ const config: ControlPanelConfig = {
       ),
     },
     secondary_metric: {
-      label: t('Secondary Metric'),
+      label: t('Custom Color Group'),
       default: null,
       description: t(
-        '[optional] this secondary metric is used to ' +
+        '[optional] this custom color group is used to ' +
           'define the color as a ratio against the primary metric. ' +
           'When omitted, the color is categorical and based on labels',
       ),
@@ -180,7 +180,7 @@ const config: ControlPanelConfig = {
     },
     linear_color_scheme: {
       description: t(
-        'When a secondary metric is provided, a linear color scale is used.',
+        'When a custom color group is provided, a linear color scale is used.',
       ),
       visibility: ({ controls }: ControlPanelsContainerProps) =>
         Boolean(
