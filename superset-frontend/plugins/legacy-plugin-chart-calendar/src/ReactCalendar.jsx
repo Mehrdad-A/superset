@@ -105,7 +105,7 @@ const Calendar = ({ className, ...otherProps }) => {
       />
       <NavigationBar>
         <div id="prev" style={{ cursor: 'pointer' }}>
-          prev
+          previous
         </div>
         <div id="next" style={{ cursor: 'pointer' }}>
           next
