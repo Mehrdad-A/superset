@@ -572,7 +572,27 @@ COMMON_BOOTSTRAP_OVERRIDES_FUNC: Callable[
 #     }]
 
 # This is merely a default
-EXTRA_CATEGORICAL_COLOR_SCHEMES: List[Dict[str, Any]] = []
+EXTRA_CATEGORICAL_COLOR_SCHEMES = [
+    {
+        "id": 'kudos001',        
+        "description": 'Kudos Inc. Color Scheme 10 colors',        
+        "label": 'Kudos Inc.',        
+        "isDefault": True,       
+        "colors":
+            ['#65BB47', '#FF9B26', '#07CCC1', '#FD7449', '#575F86', 
+             '#FF7D95', '#12B5E9', '#858CAB', '#9974E8', '#5B93E7']
+    },    {
+        "id": 'kudos002',        
+        "description": 'Kudos Inc. Color Scheme 20 colors',        
+        "label": 'Kudos Inc. Extended',        
+        "isDefault": False,        
+        "colors":
+            ['#65BB47', '#FF9B26', '#07CCC1', '#FD7449', '#575F86',             
+             '#FF7D95', '#12B5E9', '#858CAB', '#9974E8', '#5B93E7',             
+             '#CCD94B', '#FF806B', '#FF4D39', '#B378E1', '#F82786',             
+             '#13AB6B', '#8C88B5', '#AD6A61', '#0E99C4', '#553B8E']
+    }
+]
 
 # THEME_OVERRIDES is used for adding custom theme to superset
 # example code for "My theme" custom scheme
@@ -1471,7 +1491,7 @@ GUEST_ROLE_NAME = "Public"
 GUEST_TOKEN_JWT_SECRET = "test-guest-secret-change-me"
 GUEST_TOKEN_JWT_ALGO = "HS256"
 GUEST_TOKEN_HEADER_NAME = "X-GuestToken"
-GUEST_TOKEN_JWT_EXP_SECONDS = 300  # 5 minutes
+GUEST_TOKEN_JWT_EXP_SECONDS = 3600  # one hour
 # Guest token audience for the embedded superset, either string or callable
 GUEST_TOKEN_JWT_AUDIENCE: Optional[Union[Callable[[], str], str]] = None
 
