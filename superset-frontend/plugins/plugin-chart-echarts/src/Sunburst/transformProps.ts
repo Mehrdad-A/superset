@@ -136,7 +136,7 @@ export function formatTooltip({
       ${node.name}
      </div>`,
     `<div">
-      ${absolutePercentage} of total
+      ${parseFloat(absolutePercentage).toFixed(1)}% of total
      </div>`,
   ];
   if (parentNode) {
@@ -145,7 +145,7 @@ export function formatTooltip({
     );
     result.push(`
     <div>
-      ${conditionalPercentage} of ${parentNode.name}
+      ${parseFloat(conditionalPercentage).toFixed(1)}% of ${parentNode.name}
     </div>`);
   }
   result.push(
@@ -156,9 +156,6 @@ export function formatTooltip({
         : `, ${secondaryMetricLabel}: ${formattedSecondaryValue}`
     }
      </div>`,
-    colorByCategory
-      ? ''
-      : `<div>${metricLabel}/${secondaryMetricLabel}: ${compareValuePercentage}</div>`,
   );
   result.push('</div>');
   return result.join('\n');
@@ -344,8 +341,10 @@ export default function transformProps(
       ...getDefaultTooltip(refs),
       show: !inContextMenu,
       trigger: 'item',
-      formatter: (params: any) =>
-        formatTooltip({
+      formatter: (params: any) => {
+        console.log('here tooltip')
+        // console.log(params)
+        return formatTooltip({
           params,
           numberFormatter,
           colorByCategory,
@@ -353,7 +352,8 @@ export default function transformProps(
           metricLabel,
           secondaryMetricLabel,
           theme,
-        }),
+        });
+      },
     },
     series: [
       {
