@@ -333,8 +333,7 @@ export default function transformProps(
       show: !inContextMenu,
       trigger: 'item',
       formatter: (params: any) => {
-        console.log(params)
-        return formatTooltip({
+        formatTooltip({
           params,
           numberFormatter,
           colorByCategory,
@@ -342,8 +341,7 @@ export default function transformProps(
           metricLabel,
           secondaryMetricLabel,
           theme,
-        });
-      },
+        }),
     },
     series: [
       {
