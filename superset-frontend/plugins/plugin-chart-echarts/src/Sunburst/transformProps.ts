@@ -333,8 +333,7 @@ export default function transformProps(
       show: !inContextMenu,
       trigger: 'item',
       formatter: (params: any) => {
-        console.log('here tooltip')
-        // console.log(params)
+        console.log(params)
         return formatTooltip({
           params,
           numberFormatter,
