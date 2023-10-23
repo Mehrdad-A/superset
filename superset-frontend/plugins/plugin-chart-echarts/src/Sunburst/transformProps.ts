@@ -148,15 +148,6 @@ export function formatTooltip({
       ${parseFloat(conditionalPercentage).toFixed(1)}% of ${parentNode.name}
     </div>`);
   }
-  result.push(
-    `<div>
-    ${metricLabel}: ${formattedValue}${
-      colorByCategory
-        ? ''
-        : `, ${secondaryMetricLabel}: ${formattedSecondaryValue}`
-    }
-     </div>`,
-  );
   result.push('</div>');
   return result.join('\n');
 }
