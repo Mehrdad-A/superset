@@ -150,11 +150,7 @@ export function formatTooltip({
   }
   result.push(
     `<div>
-    ${metricLabel}: ${formattedValue}${
-      colorByCategory
-        ? ''
-        : `, ${secondaryMetricLabel}: ${formattedSecondaryValue}`
-    }
+    ${metricLabel}: ${formattedValue}
      </div>`,
   );
   result.push('</div>');
@@ -341,10 +337,8 @@ export default function transformProps(
       ...getDefaultTooltip(refs),
       show: !inContextMenu,
       trigger: 'item',
-      formatter: (params: any) => {
-        console.log('here tooltip')
-        // console.log(params)
-        return formatTooltip({
+      formatter: (params: any) =>
+        formatTooltip({
           params,
           numberFormatter,
           colorByCategory,
@@ -352,8 +346,7 @@ export default function transformProps(
           metricLabel,
           secondaryMetricLabel,
           theme,
-        });
-      },
+        }),
     },
     series: [
       {
